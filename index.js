@@ -76,7 +76,7 @@ const usedApi = new Set()
 const isUsedApi = (ip) => !!usedApi.has(ip)
 const addUsedApi = (ip) => {
     usedApi.add()
-    setTimeout(() => usedApi.delete(from), delayantispamcmd * 2000)
+    setTimeout(() => usedApi.delete(from), 2000)
 }
 
 function dataAtualFormatada(){
