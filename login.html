@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Briz4lok4 APIs - Login</title>
+        <meta charset="utf-8">
+        <link rel="icon" href="https://avatars.githubusercontent.com/u/57237342?v=4">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="site_src/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="site_src/vendors/bower_components/animate.css/animate.min.css">
+        <link rel="stylesheet" href="site_src/css/app.min.css">
+    </head>
+
+    <body data-sa-theme="1">
+        <div class="login">
+            <div class="login__block active" id="l-login">
+                <div class="login__block__header">
+                    <i class="zmdi zmdi-account-circle"></i>
+                    Olá, insira seu usuário e apikey
+
+                    <div class="actions actions--inverse login__block__actions">
+                        <div class="dropdown">
+                            <i data-toggle="dropdown" class="zmdi zmdi-more-vert actions__item"></i>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" onclick="openregister()" href="#">Registrar-se</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="status_alert" class="alert collapse" role="alert">
+                    This is a success alert—check it out!
+                  </div>
+                <div class="login__block__body">
+                    <div class="form-group">
+                        <input id="user_login" type="text" class="form-control text-center" placeholder="Nome de usuário">
+                    </div>
+
+                    <div class="form-group">
+                        <input id="apikey_login" type="password" class="form-control text-center" placeholder="Apikey">
+                    </div>
+
+                    <a href="#" onclick="login()" class="btn btn--icon login__block__btn"><i class="zmdi zmdi-long-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="login__block" id="l-register">
+                <div class="login__block__header">
+                    <i class="zmdi zmdi-account-circle"></i>
+                    Registrar apikey
+
+                    <div class="actions actions--inverse login__block__actions">
+                        <div class="dropdown">
+                            <i data-toggle="dropdown" class="zmdi zmdi-more-vert actions__item"></i>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" onclick="openlogin()" href="#">Já possui uma conta?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="status_alert_register" class="alert collapse" role="alert">
+                    This is a success alert—check it out!
+                  </div>
+                <div class="login__block__body">
+                    <div class="form-group">
+                        <input id="access_code" type="text" class="form-control text-center" placeholder="Código de acesso">
+                    </div>
+
+                    <div class="form-group form-group--centered">
+                        <input id="user_register" type="text" class="form-control text-center" placeholder="Nome de usuário">
+                    </div>
+
+                    <div class="form-group form-group--centered">
+                        <input id="pass_register" type="password" class="form-control text-center" placeholder="Nome de apikey">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Aceito os termos e condições</span>
+                        </label>
+                    </div>
+
+                    <a href="#" onclick="register()"  class="btn btn--icon login__block__btn"><i class="zmdi zmdi-plus"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="site_src/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="site_src/vendors/bower_components/popper.js/dist/umd/popper.min.js"></script>
+        <script src="site_src/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="site_src/js/app.min.js"></script>
+        <script src="site_src/js/login.js"></script>
+        <script>
+            if(localStorage.getItem('Theme')) {
+                var value = localStorage.getItem('Theme')
+                if(!isNaN(value)) {
+                    $('body').attr('data-sa-theme', value)
+                }
+            }
+        </script>
+    </body>
+</html>

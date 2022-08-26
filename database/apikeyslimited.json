@@ -1,0 +1,202 @@
+[
+  {
+    "_id": "6109c635f307962708da6712",
+    "info": {
+      "usuario": "briz4loka",
+      "apikey": "brizaloka",
+      "limit_request": 10000,
+      "request_rest": 9942
+    },
+    "data": "03/08/2021"
+  },
+  {
+    "_id": "61734a7829a524124f958d06",
+    "info": {
+      "usuario": "gst",
+      "apikey": "gstt",
+      "limit_request": 700,
+      "request_rest": 667
+    },
+    "data": "22/10/2021"
+  },
+  {
+    "_id": "617dc1b22fc2c77fce58f1c1",
+    "info": {
+      "usuario": "sulamita luiz.",
+      "apikey": "Iwagakure",
+      "limit_request": 2000,
+      "request_rest": 1982
+    },
+    "data": "30/10/2021"
+  },
+  {
+    "_id": "61918bcd2307015c198ee244",
+    "info": {
+      "usuario": "Lindionez",
+      "apikey": "Lindio4444",
+      "limit_request": 700,
+      "request_rest": 427
+    },
+    "data": "14/11/2021"
+  },
+  {
+    "_id": "61992501512a7891fe730b01",
+    "info": {
+      "usuario": "Lucas",
+      "apikey": "Tictac",
+      "limit_request": 700,
+      "request_rest": 685
+    },
+    "data": "20/11/2021"
+  },
+  {
+    "_id": "619c274022b2703ab0141375",
+    "info": {
+      "usuario": "MrCake",
+      "apikey": "pablobill",
+      "limit_request": 700,
+      "request_rest": 685
+    },
+    "data": "22/11/2021"
+  },
+  {
+    "_id": "61b665578077b49a0e627de0",
+    "info": {
+      "usuario": "Majiko",
+      "apikey": "kokoronashi",
+      "limit_request": 700,
+      "request_rest": 527
+    },
+    "data": "12/12/2021"
+  },
+  {
+    "_id": "61b665578077b49a0e627de1",
+    "info": {
+      "usuario": "Majiko",
+      "apikey": "kokoronashi",
+      "limit_request": 700,
+      "request_rest": 527
+    },
+    "data": "12/12/2021"
+  },
+  {
+    "_id": "61d4eb1b4d83fd737eba582f",
+    "info": {
+      "usuario": "gdrwadev1",
+      "apikey": "gdrwadev",
+      "limit_request": 500,
+      "request_rest": 485
+    },
+    "data": "05/01/2022"
+  },
+  {
+    "_id": "61f72cfc92dfe5e4604f3cd6",
+    "info": {
+      "usuario": "John",
+      "apikey": "johnmaster",
+      "limit_request": 1000,
+      "request_rest": 503
+    },
+    "data": "31/01/2022"
+  },
+  {
+    "_id": "6203aa8fb5f880153cf5a442",
+    "info": {
+      "usuario": "João.SX",
+      "apikey": "JoaoDroidzinSX",
+      "limit_request": 700,
+      "request_rest": 541
+    },
+    "data": "09/02/2022"
+  },
+  {
+    "_id": "620a4629f444748dcc0ead91",
+    "info": {
+      "usuario": "SH JodeGamer",
+      "apikey": "SH_personal_apikey_",
+      "limit_request": 700,
+      "request_rest": 677
+    },
+    "data": "14/02/2022"
+  },
+  {
+    "_id": "621d57e7eb362f27961786e8",
+    "info": {
+      "usuario": "kauany Alcântara real",
+      "apikey": "kauany",
+      "limit_request": 700,
+      "request_rest": 657
+    },
+    "data": "28/02/2022"
+  },
+  {
+    "_id": "623dbc977a79d1e94b06b007",
+    "info": {
+      "usuario": " bronksbot",
+      "apikey": "bronks",
+      "limit_request": 700,
+      "request_rest": 666
+    },
+    "data": "25/03/2022"
+  },
+  {
+    "_id": "6256332a2068eb451c5bd879",
+    "info": {
+      "usuario": "kaua_gremory",
+      "apikey": "itachi",
+      "limit_request": 700,
+      "request_rest": 655
+    },
+    "data": "13/04/2022"
+  },
+  {
+    "_id": "627db8414a633b7068f9231f",
+    "info": {
+      "usuario": "gciguyr",
+      "apikey": "yfyhcvuv",
+      "limit_request": 700,
+      "request_rest": 700
+    },
+    "data": "13/05/2022"
+  },
+  {
+    "_id": "627dbca54a633b7068f92321",
+    "info": {
+      "usuario": "gcicv",
+      "apikey": "vyovybyv",
+      "limit_request": 700,
+      "request_rest": 700
+    },
+    "data": "13/05/2022"
+  },
+  {
+    "_id": "627dc2308169b2013cc99915",
+    "info": {
+      "usuario": "v8tctuct",
+      "apikey": "yfy8f8yfy8",
+      "limit_request": 700,
+      "request_rest": 700
+    },
+    "data": "13/05/2022"
+  },
+  {
+    "_id": "627ee9a4b660ccb262380f7b",
+    "info": {
+      "usuario": "Bruno Leal ",
+      "apikey": "edward22",
+      "limit_request": 700,
+      "request_rest": 648
+    },
+    "data": "13/05/2022"
+  },
+  {
+    "_id": "62d2eb7c88753926758abc0f",
+    "info": {
+      "usuario": "lzmodsoficial",
+      "apikey": "lzkkj",
+      "limit_request": 700,
+      "request_rest": 0
+    },
+    "data": "16/07/2022"
+  }
+]

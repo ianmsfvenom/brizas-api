@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+    <body data-sa-theme="1">
+        <section class="error">
+            <div class="error__inner">
+                <h1>404</h1>
+                <h2>A página a você procura não existe</h2>
+                <p>Caso seja uma api, ela provavelmente foi apagada ou não está disponível no momento. Volte mais tarde</p>
+            </div>
+        </section>
+        <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="vendors/bower_components/popper.js/dist/umd/popper.min.js"></script>
+        <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            if(localStorage.getItem('Theme')) {
+                var value = localStorage.getItem('Theme')
+                console.log(value)
+                $('body').attr('data-sa-theme', value)
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Briz4lok4 APIs - Home</title>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/57237342?v=4">
+    <link rel="stylesheet" href="site_src/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="site_src/vendors/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="site_src/vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
+    <link rel="stylesheet" href="site_src/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css">
+
+    <link rel="stylesheet" href="site_src/css/app.min.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q02MJJ2R2J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q02MJJ2R2J');
+    </script>
+</head>
+
+    <body id="theme" data-sa-theme="1">
+        <main class="main">
+            <div class="page-loader">
+                <div class="page-loader__spinner">
+                    <svg viewBox="25 25 50 50">
+                        <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+                    </svg>
+                </div>
+            </div>
+
+            <header class="header">
+                <div class="navigation-trigger hidden-xl-up" data-sa-action="aside-open" data-sa-target=".sidebar">
+                    <i class="zmdi zmdi-menu"></i>
+                </div>
+
+                <div class="logo hidden-sm-down">
+                    <h1><a href="https://github.com/ianmsfvenom">Briz4lok4 RESTs APIs</a></h1>
+                </div>
+                
+                <form onsubmit="checkapikey()" action="#" class="search">
+                    <div class="search__inner">
+                        <input id="apikey_search" type="text" class="search__text" placeholder="Cheque sua apikey aqui...">
+                        <i class="zmdi zmdi-search search__helper" data-sa-action="search-close"></i>
+                    </div>
+                </form>
+
+                <ul class="top-nav">
+                    <li class="hidden-xl-up"><a href="#" data-sa-action="search-open"><i class="zmdi zmdi-search"></i></a></li>
+
+                    <li class="dropdown hidden-xs-down">
+                        <a href="#" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-item theme-switch">
+                                Tema
+
+                                <div class="btn-group btn-group--colors mt-2 d-block" data-toggle="buttons">
+                                    <label id="red" class="btn border-0" style="background-color: #772036"><input  type="radio" onclick="savetheme()" value="1" autocomplete="off" checked></label>
+                                    <label id="gray" class="btn border-0" style="background-color: #273C5B"><input  type="radio" onclick="savetheme()" value="2" autocomplete="off"></label>
+                                    <label id="green" class="btn border-0" style="background-color: #174042"><input type="radio"  onclick="savetheme()" value="3" autocomplete="off"></label>
+                                    <label id="gray_dark" class="btn border-0" style="background-color: #383844"><input type="radio" onclick="savetheme()" value="4" autocomplete="off"></label>
+                                    <label id="brown" class="btn border-0" style="background-color: #49423F"><input type="radio" onclick="savetheme()" value="5" autocomplete="off"></label>
+
+                                    <br>
+
+                                    <label id="brown_light" class="btn border-0" style="background-color: #5e3d22"><input  onclick="savetheme()" type="radio" value="6" autocomplete="off"></label>
+                                    <label id="blue" class="btn border-0" style="background-color: #234d6d"><input onclick="savetheme()" type="radio" value="7" autocomplete="off"></label>
+                                    <label id="green_light" class="btn border-0" style="background-color: #3b5e5e"><input  onclick="savetheme()" type="radio" value="8" autocomplete="off"></label>
+                                    <label id="green_dark" class="btn border-0" style="background-color: #0a4c3e"><input onclick="savetheme()" type="radio" value="9" autocomplete="off"></label>
+                                    <label id="red_light" class="btn border-0" style="background-color: #7b3d54"><input onclick="savetheme()" type="radio" value="10" autocomplete="off"></label>
+                                </div>
+                            </div>
+                            <a href="#" class="dropdown-item" data-sa-action="fullscreen">Fullscreen</a>
+                        </div>
+                    </li>
+                </ul>
+                <script>
+                    function savetheme() {
+                        if(document.getElementById('red').className == 'btn border-0 active') localStorage.setItem('Theme', 1)
+                        else if(document.getElementById('gray').className == 'btn border-0 active') localStorage.setItem('Theme', 2)
+                        else if(document.getElementById('green').className == 'btn border-0 active') localStorage.setItem('Theme', 3)
+                        else if(document.getElementById('gray_dark').className == 'btn border-0 active')localStorage.setItem('Theme', 4)
+                        else if(document.getElementById('brown').className == 'btn border-0 active') localStorage.setItem('Theme', 5)
+                        else if(document.getElementById('brown_light').className == 'btn border-0 active') localStorage.setItem('Theme', 6)
+                        else if(document.getElementById('blue').className == 'btn border-0 active') localStorage.setItem('Theme', 7)
+                        else if(document.getElementById('green_light').className == 'btn border-0 active') localStorage.setItem('Theme', 8)
+                        else if(document.getElementById('green_dark').className == 'btn border-0 active') localStorage.setItem('Theme', 9)
+                        else if(document.getElementById('red_light').className == 'btn border-0 active') localStorage.setItem('Theme', 10)
+                    }
+                    setInterval(savetheme, 1000)
+                </script>
+                <div class="clock hidden-md-down">
+                    <div class="time">
+                        <span class="hours"></span>
+                        <span class="min"></span>
+                        <span class="sec"></span>
+                    </div>
+                </div>
+            </header>
+
+            <aside class="sidebar">
+                <div class="scrollbar-inner">
+                    <div class="user">
+                        <div class="user__info" data-toggle="dropdown">
+                            <img class="user__img" src="site_src/demo/img/profile-pics/8.jpg" alt="">
+                            <div>
+                                <div id="username" class="user__name">Usuário: vazio</div>
+                                <div id="user_apikey" class="user__email">Apikey: Vazio</div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="logout()" href="#">Deslogar</a>
+                        </div>
+                    </div>
+
+                    <ul class="navigation">
+                        <li class="navigation__active"><a href="/"><i class="zmdi zmdi-home"></i> Home</a></li>
+
+                        <li class="@@variantsactive"><a href="/pricing"><i class="zmdi zmdi-money"></i> Planos de Apikey</a></li>
+
+                        <li class="@@typeactive"><a href="/login"><i class="zmdi zmdi-accounts"></i> Login</a></li>
+                        <li class="@@typeactive"><a href="/register"><i class="zmdi zmdi-key"></i> Registrar-se</a></li>
+
+                        <br>
+                        <p>Lista de apis</p>
+
+                        <li class="navigation__sub @@widgetactive">
+                            <a href="#"><i class="zmdi zmdi-mood"></i> Imitador de Vozes</a>
+                            <ul>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/negobam?apikey=SUAKEY&text=olá, sou a voz do nego bam">Negobam</a></li>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/chapolin?apikey=SUAKEY&text=sou o chapolin colorado">Chapolin Colorado</a></li>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/eminem?apikey=SUAKEY&text=snap back to reality">Eminem</a></li>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/orochinho?apikey=SUAKEY&text=snap back to reality">Orochinho</a></li>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/ibere?apikey=SUAKEY&text=olá, sou a voz do iberê">Iberê</a></li>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/imitar/leoncio?apikey=SUAKEY&text=bolinha de gorfe">Leôncio</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@widgetactive">
+                            <a href="#"><i class="zmdi zmdi-globe-alt"></i> Redes Sociais</a>
+                            <ul>
+                                
+                            </ul>
+                        </li>
+                        
+                        <li class="navigation__sub @@widgetactive">
+                            <a href="#"><i class="zmdi zmdi-youtube"></i> Youtube Downloader</a>
+                            <ul>
+                                <li class="@@normaltableactive"><a class="api" target="__blank" href="/sociais/youtubesrc?apikey=SUAKEY&query=brizasbot">Yt Search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/ytplaymp3?apikey=SUAKEY&query=Gorrilaz%20clint">Ytplaymp3</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/ytplaymp4?apikey=SUAKEY&query=Gorrilaz%20clint">Ytplaymp4</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/ytmp3?apikey=SUAKEY&url=https://youtu.be/D9G1VOjN_84">Ytmp3 Downloader</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/ytmp4?apikey=SUAKEY&url=https://youtu.be/D9G1VOjN_84">Ytmp4 Downloader</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/v2/ytplaymp3?apikey=SUAKEY&query=Gorrilaz%20clint">Ytplaymp3 V2</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/v2/ytplaymp4?apikey=SUAKEY&query=Gorrilaz%20clint">Ytplaymp4 V2</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/v2/ytmp3?apikey=SUAKEY&url=https://youtu.be/D9G1VOjN_84">Ytmp3 Downloader V2</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/v2/ytmp4?apikey=SUAKEY&url=https://youtu.be/D9G1VOjN_8">Ytmp4 Downloader V2</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/sociais/ttsearch?apikey=SUAKEY&username=karolinehss_">TikTok search</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@tableactive">
+                            <a href="#"><i class="zmdi zmdi-block"></i>Sites +18</a>
+
+                            <ul>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/rule34?apikey=SUAKEY&query=">Rule 34 search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/xvideos?apikey=SUAKEY&query=">Xvideos search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/xanimu?apikey=SUAKEY&query=">Xanimu search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/fapster?apikey=SUAKEY&query=">Fapster search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/xnxx?apikey=SUAKEY&query=">Xnxx search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/pornhub?apikey=SUAKEY&query=">Pornhub search</a></li>
+                                <li class="@@datatableactive"><a class="api" target="__blank" href="/porn/thumbzilla?apikey=SUAKEY&query=">Thumbzilla search</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@formactive">
+                            <a href="#"><i class="zmdi zmdi-format-color-text"></i> Text to Picture(TTP)</a>
+
+                            <ul>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp1?apikey=SUAKEY&text=brizaloka">Attp 1</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp2?apikey=SUAKEY&text=brizaloka">Attp 2</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp3?apikey=SUAKEY&text=brizaloka">Attp 3</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp4?apikey=SUAKEY&text=brizaloka">Attp 4</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp5?apikey=SUAKEY&text=brizaloka">Attp 5</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/attp6?apikey=SUAKEY&text=brizaloka">Attp 6</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp1?apikey=SUAKEY&text=brizaloka">Ttp 1</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp2?apikey=SUAKEY&text=brizaloka">Ttp 2</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp3?apikey=SUAKEY&text=brizaloka">Ttp 3</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp4?apikey=SUAKEY&text=brizaloka">Ttp 4</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp5?apikey=SUAKEY&text=brizaloka">Ttp 5</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ttp/ttp6?apikey=SUAKEY&text=brizaloka">Ttp 6</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@uiactive">
+                            <a href="#"><i class="zmdi zmdi-memory"></i> Inteligência Artificial</a>
+
+                            <ul>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/porndetect?apikey=SUAKEY&img=https://hentaicomics.biz/wp-content/uploads/2020/07/Hentai-Kai-Oniimo-no-Nin-01.jpg">Detector de pornô Imagem</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/porngifdetect?apikey=SUAKEY&img=https://wetgif.com/wp-content/uploads/2021/02/morning-sex-m.gif">Detector de pornô GIF</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/linkdetect?apikey=SUAKEY&text=www.google.com">Detector link</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/simsimi?apikey=SUAKEY&text=ola">Simsimi</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/facedetect?apikey=SUAKEY&img=https://tecnoblog.net/meiobit/wp-content/uploads/2019/07/20190727amazon-the-boys.jpeg">Detector de rosto</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/ia/lyricsfinder?apikey=SUAKEY&query=stay">Pesquisa de letra de música</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub @@componentsactive">
+                            <a href="#"><i class="zmdi zmdi-local-grocery-store"></i> Lojas</a>
+
+                            <ul class="navigation__sub">
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/lojas/mercadolivre?apikey=SUAKEY&query=celular">Mercado Livre</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@chartsactive">
+                            <a href="#"><i class="zmdi zmdi-bug"></i> Covid 19</a>
+
+                            <ul>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/covidmundo?apikey=SUAKEY">Covid Mundo Status</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/covidbrasil?apikey=SUAKEY">Covid Brazil Status</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/covidcountry?apikey=SUAKEY&country=Brazil">Covid País Status</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/covidcontinent?apikey=SUAKEY&continent=South America">Covid Continente Status</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-settings"></i> Geradores</a>
+                            <ul>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/fancytext?apikey=SUAKEY&text=brizaloka">Fancy Text</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/cpf?apikey=SUAKEY">Gerador de CPF</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/cep?apikey=SUAKEY">Gerador de CEP</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/crlv?apikey=SUAKEY">Gerador de CRLV (documento de veiculo)</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/pessoa?apikey=SUAKEY">Gerador de identidade</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/renavam?apikey=SUAKEY">Gerador de RENAVAM</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/empresa?apikey=SUAKEY">Gerador de empresa</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/processo?apikey=SUAKEY">Gerador de processo judicial</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/cnae?apikey=SUAKEY">Gerador de CNAE</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/cnh?apikey=SUAKEY">Gerador de CNH</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/cnpj?apikey=SUAKEY">Gerador de CNPJ</a></li>
+                                <li class="@@formelementactive"><a class="api" target="__blank" href="/gerador/certidao?apikey=SUAKEY">Gerador de certidão</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@photogalleryactive"><a href="#"><i class="zmdi zmdi-block"></i> Hentai</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/creampie?apikey=SUAKEY">Creampie</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/bdsm?apikey=SUAKEY">BDSM</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/ass?apikey=SUAKEY">Ass</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/incest?apikey=SUAKEY">Incest</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/manga?apikey=SUAKEY">Manga</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/tentacles?apikey=SUAKEY">Tentacles</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/gangbang?apikey=SUAKEY">Gangbang</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/uniform?apikey=SUAKEY">Uniform</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/ahegao?apikey=SUAKEY">Ahegao</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/pussy?apikey=SUAKEY">Pussy</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/thighs?apikey=SUAKEY">Thighs</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/cuckold?apikey=SUAKEY">Cuckold</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/glasses?apikey=SUAKEY">Glasses</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/pantsu?apikey=SUAKEY">Pantsu</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/orgy?apikey=SUAKEY">Orgy</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/public?apikey=SUAKEY">Public</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/blowjob?apikey=SUAKEY">Blowjob</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/eroneko?apikey=SUAKEY">Ero Neko</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/erokemonomimi?apikey=SUAKEY">Ero Kemonomimi</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/erokitsune?apikey=SUAKEY">Ero Kitsune</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/ero?apikey=SUAKEY">Ero Random</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/feet?apikey=SUAKEY">Feet</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/femdom?apikey=SUAKEY">Femdom</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/hentai?apikey=SUAKEY">Random Hentai</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/nsfwholoero?apikey=SUAKEY">Holo Ero</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/nsfwholo?apikey=SUAKEY">Nsfw Holo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/kitsune?apikey=SUAKEY">Kitsune</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/nsfwkemonomimi?apikey=SUAKEY">Nsfw Kemonomimi</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/pussywankgif?apikey=SUAKEY">Pussy Wank Gif</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/girlsolo?apikey=SUAKEY">Girl Solo Masturbate</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/yuri?apikey=SUAKEY">Yuri</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/anal?apikey=SUAKEY">Anal</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/boobs?apikey=SUAKEY">Boobs</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/kuni?apikey=SUAKEY">Kuni</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/neko?apikey=SUAKEY">Nsfw Neko</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/nsfwnekogif?apikey=SUAKEY">Nsfw Neko Gif</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hentai/hentaigif?apikey=SUAKEY">Random Hentai Gif</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub @@samplepagesactive">
+                            <a href="#"><i class="zmdi zmdi-arrow-split"></i> Randons</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/random/quotes?apikey=SUAKEY">Frases motivacionais</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/fuckmylife?apikey=SUAKEY">Fuck my life</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/smug?apikey=SUAKEY">Smug</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/baka?apikey=SUAKEY">Baka</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/tickle?apikey=SUAKEY">Tickle</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/slap?apikey=SUAKEY">Slap</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/pat?apikey=SUAKEY">Pat</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/neko?apikey=SUAKEY">Neko</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/nekogif?apikey=SUAKEY">Neko Gif</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/meow?apikey=SUAKEY">Meow</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/lizard?apikey=SUAKEY">Lizard</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/kiss?apikey=SUAKEY">Kiss</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/hug?apikey=SUAKEY">Hug</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/foxgirl?apikey=SUAKEY">Foxy girl</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/feed?apikey=SUAKEY">Feed</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/kemonomimi?apikey=SUAKEY">Kemonomimi</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/cuddle?apikey=SUAKEY">Cuddle</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/holo?apikey=SUAKEY">Holo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/woof?apikey=SUAKEY">Woof</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/wallpaper?apikey=SUAKEY">Wallpaper Anime</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/goose?apikey=SUAKEY">Goose</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/gegc?apikey=SUAKEY">Gegc</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/avatar?apikey=SUAKEY">Avatar</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/random/waifu?apikey=SUAKEY">Waifu</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-settings"></i> Conversor de mídia</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/pngtowebp?apikey=SUAKEY&img=https://i.pinimg.com/originals/14/aa/f1/14aaf12a08a2ce77271f8e35f231b9ff.png">PNG para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/jpgtowebp?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/481px-Cat03.jpg">JPG para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/giftomp4?apikey=SUAKEY&img=https://images-cdn.newscred.com/Zz04NjA3ZjljMjQ0ODkxMWViOWRjYzU1OGJkNjI1ZjVkZA==">GIF para MP4</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/giftowebp?apikey=SUAKEY&img=https://images-cdn.newscred.com/Zz04NjA3ZjljMjQ0ODkxMWViOWRjYzU1OGJkNjI1ZjVkZA==">GIF para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/webptogif?apikey=SUAKEY&img=https://i.ibb.co/LJfN1qZ/ian.webp">WEBP para GIF</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/webptomp4?apikey=SUAKEY&img=https://i.ibb.co/LJfN1qZ/ian.webp">WEBP para MP4</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/webptomp4?apikey=SUAKEY&img=">MP4 para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/jpgtopng?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/481px-Cat03.jpg">JPG para PNG</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/pngtojpg?apikey=SUAKEY&img=https://i.pinimg.com/originals/14/aa/f1/14aaf12a08a2ce77271f8e35f231b9ff.png">PNG para JPG</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/jpgtowebp?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/481px-Cat03.jpg">JPG para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/pngtowebp?apikey=SUAKEY&img=https://i.pinimg.com/originals/14/aa/f1/14aaf12a08a2ce77271f8e35f231b9ff.png">PNG para WEBP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/svgtojpg?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/6/67/Firefox_Logo%2C_2017.svg">SVG para JPG</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/svgtopng?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/6/67/Firefox_Logo%2C_2017.svg">SVG para PNG</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/pngopt?apikey=SUAKEY&img=https://i.pinimg.com/originals/14/aa/f1/14aaf12a08a2ce77271f8e35f231b9ff.png">PNG otimização</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/jpgopt?apikey=SUAKEY&img=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/481px-Cat03.jpg">JPG otimização</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/conversor/gifopt?apikey=SUAKEY&img=https://images-cdn.newscred.com/Zz04NjA3ZjljMjQ0ODkxMWViOWRjYzU1OGJkNjI1ZjVkZA==">GIF otimização</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-gif"></i> GIF Editor</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/gifeffect/blink?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725?v=4">Blink Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/gifeffect/amongus?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&text1=brizaloka nao era o impostor&text2=1 impostor restando">Among Us Ejector</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/gifeffect/triggered?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Triggered Effect</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-search"></i> Pesquisar</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/search/pensador?apikey=SUAKEY&query=elon musk">Pensador</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/googlemaps?apikey=SUAKEY&query=brizasbot">Google maps</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/googlesrc?apikey=SUAKEY&query=brizasbot">Google search</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/googleimg?apikey=SUAKEY&query=ianmsfvenom">Google Images</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/wikipedia?apikey=SUAKEY&query=javascript">Wikipedia Search</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/happymod?apikey=SUAKEY&query=javascript">Happymod App Search</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/googleplay?apikey=SUAKEY&query=minecraft">Google Play Search</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/githubuser?apikey=SUAKEY&query=ianmsfvenom">Github User Stalker</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/search/githubrepo?apikey=SUAKEY&query=brizasbot01">Github Repo User Stalker</a></li>    
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-gamepad"></i> Games</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/games/lolprofile?apikey=SUAKEY&nickname=ComandoBaiano20">LOL Perfil</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/games/ffprofile?apikey=SUAKEY&id=73023279">Free Fire</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-crop"></i> Montagens</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/ad?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Ad Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/affect?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Affect Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/batslap?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725">Batslap Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/beatiful?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Beatiful Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/bed?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725">Bed Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/dobross?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Dobross Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/confusedstonks?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Confused Stonks Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/delete?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Delete Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/blackdiscord?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Black Black Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/bluediscord?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Blue Discord Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/doublestonks?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725">Double Stonks Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/facepalm?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Face Palm Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/hitler?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Hitler Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/jail?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Jail Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/karaba?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Karaba Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/kiss?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725">Kiss Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/mms?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">M&Ms Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/notstonks?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Not Stonks Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/kiss?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&img2=https://avatars.githubusercontent.com/u/76016725&img3=https://avatars.githubusercontent.com/u/80921364&text=brizaloka&text2=thoth&text3=devgab">Podium Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/poutine?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Poutine Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/rip?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Rip Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/spank?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Spank Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/stonks?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Stonks Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/tatto?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Tatto Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/thomas?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Thomas Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/trash?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Trash Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/montage/wanted?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342&text=brizaloka">Wanted Effect</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-cloud-upload"></i> Posts Uploads</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/upload/image?apikey=INPUTAPIKEY&image=INPUTPOST">Imagem (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/upload/image?imgname=NAMEIMGPOST">Imagem ID Get</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-image"></i> Efeito de Imagens</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/lisapresentation?apikey=SUAKEY&text=brizaloka">Lisa Apresentação</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/blur?apikey=SUAKEY&level=5&img=https://avatars.githubusercontent.com/u/57237342">Blur Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/gay?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Gay effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/greyscale?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Greyscale Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/invert?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Invert Effect</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/imgeffect/sepia?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Sepia Effect</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-videocam"></i> Editor de vídeos</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/video/reversevideo?apikey=SUAKEY&video=POSTVIDEO">Reverso (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/rapidvid?apikey=SUAKEY&video=POSTVIDEO">Rápido (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/lentovid?apikey=SUAKEY&video=POSTVIDEO">Lento (POST)</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-audio"></i> Editor de áudio</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/audio/bass?apikey=SUAKEY&audio=POSTAUDIO">Bass (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/audio/estourar?apikey=SUAKEY&audio=POSTAUDIO">Estourado (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/audio/esquilo?apikey=SUAKEY&audio=POSTAUDIO">Voz de Esquilo (POST)</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/audio/reverseaudio?apikey=SUAKEY&audio=POSTAUDIO">Áudio Reverso (POST)</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-face"></i> Consultas</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/consulta/ip?apikey=SUAKEY&ip=IP">Consultar IP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/consulta/cep?apikey=SUAKEY&cep=CEP">Consultar CEP</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/consulta/ddd?apikey=SUAKEY&ddd=CEP">Consultar DDD</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/consulta/rastreamento/correio?apikey=SUAKEY&codigo=ENCOMENDA">Rastrear encomenda correio</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/consulta/cnpj?apikey=SUAKEY&cnpj=CNPJ">Consultar CNPJ</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-format-size"></i> Photo Oxy V1</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/flower?apikey=SUAKEY&text=brizaloka">Flower Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/undergrass?apikey=SUAKEY&text=brizaloka">Undergrass Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/typography?apikey=SUAKEY&text=brizaloka">Tipografy Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/naruto?apikey=SUAKEY&text=brizaloka">Naruto Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/love?apikey=SUAKEY&text=brizaloka">Love Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/coffe?apikey=SUAKEY&text=brizaloka">Coffe Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/coffev2?apikey=SUAKEY&text=brizaloka">Coffe 2 Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/cemitery?apikey=SUAKEY&text=brizaloka">Cemitery Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/googlesrc?apikey=SUAKEY&text=brizaloka&text2=melhor%20bot&do%20mundo">Google Search Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/gradient?apikey=SUAKEY&text=brizaloka">Gradient Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/glowing?apikey=SUAKEY&text=brizaloka">Glowing Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/pubg?apikey=SUAKEY&text=brizaloka&text2=domina">PUBG Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/btf4?apikey=SUAKEY&text=brizaloka&text2=domina">Battlefield 4 Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/shinerainbow?apikey=SUAKEY&text=brizaloka">Shine Rainbow Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/graffiti?apikey=SUAKEY&text=brizaloka">Graffiti Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/pink?apikey=SUAKEY&text=brizaloka">Neon Pink Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/rainbow?apikey=SUAKEY&text=brizaloka">Neon Rainbow Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/green?apikey=SUAKEY&text=brizaloka">Neon Green Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/blue?apikey=SUAKEY&text=brizaloka">Neon Blue Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/yellow?apikey=SUAKEY&text=brizaloka">Neon Yellow Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/neon/sky?apikey=SUAKEY&text=brizaloka">Neon Sky Logo</a></li>
+                              </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-format-size"></i> Photo Oxy V2</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/wanted?apikey=SUAKEY&text=Procurado&text2=R$999999,00&img=https://avatars.githubusercontent.com/u/57237342?v=4">Wanted Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/gunscircle?apikey=SUAKEY&text=brizaloka&text2=brizas-bot&img=https://avatars.githubusercontent.com/u/57237342?v=4">Circle Guns Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/crossgun?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Cross Gun Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/gtav?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">GTA V Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/sketch?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Sketch Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/stitch?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Stitch Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/glitch?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Glitch Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/phonewallpaper?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Phone Wallpaper Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/anaglyph?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Anaglyph 3D Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/nightbeach?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Nigth Beach Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photooxy/v2/3dlines?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">3D Lines Image</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-brush"></i> Text Pro</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/ph?apikey=SUAKEY&text1=porn&text2=hub">PornHub</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/marvel?apikey=SUAKEY&text1=marvel&text2=studios">Marvel</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/avengers?apikey=SUAKEY&text1=marvel&text2=avengers">Avengers</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/thunder?apikey=SUAKEY&text=thunder">Thunder</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/dropwater?apikey=SUAKEY&text=thunder">Dropwater</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/neonlight?apikey=SUAKEY&text=thunder">Neon Light</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/glow?apikey=SUAKEY&text=glow">Glow</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/impressive_glitch?apikey=SUAKEY&text=gltich">Impressive Glitch</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/bearlogo?apikey=SUAKEY&text=bear">Bear Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/lionlogo?apikey=SUAKEY&text1=lion&text2=logo">Lion Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/wolflogo?apikey=SUAKEY&text1=wolf&text2=logo">Wolf Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/jokerlogo?apikey=SUAKEY&text1=joker&text2=logo">Joker Logo</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/matrix?apikey=SUAKEY&text=Matrix">Matrix</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/box3d?apikey=SUAKEY&text=3Dbox">3D Box</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/space?apikey=SUAKEY&text=space">Space</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/circuit?apikey=SUAKEY&text=circuit">Circuit</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/textpro/magma?apikey=SUAKEY&text=magma">Magma</a></li>
+                              </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-collection-video"></i> Photo Oxy Videos</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/video/burning?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Burning Image Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/rain?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342?v=4">Rain Image Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/cold?apikey=SUAKEY&text=brizaloka">Cold Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/bold?apikey=SUAKEY&text=brizaloka">Bold Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/glowing?apikey=SUAKEY&text=brizaloka">Glowing Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/colorful?apikey=SUAKEY&text=brizaloka">Colorful Video</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/video/army?apikey=SUAKEY&text=brizaloka">Army Video</a></li>
+                            </ul>
+                        </li>
+                        <li class="navigation__sub  @@calendaractive"><a href="#"><i class="zmdi zmdi-brush"></i> Editor de Fotos</a>
+                            <ul>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/welcome?apikey=SUAKEY&desc=2020&background=https://i.imgur.com/tVKFNFk.png&profileimg=https://avatars.githubusercontent.com/u/57237342?v=4&groupimg=https://image.flaticon.com/icons/png/512/124/124034.png&number=20&groupname=brizas-gp&name=brizaloka">Welcome Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/rank?apikey=SUAKEY&name=brizaloka&atualxp=500&maxxp=1000&desc=2020&colorbar=0061FF&colortext=FF2E00&background=https://i.imgur.com/tVKFNFk.png&profileimg=https://avatars.githubusercontent.com/u/57237342&rank=5&level=1">Level Image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/circle?apikey=SUAKEY&img=https://avatars.githubusercontent.com/u/57237342">Circle image</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/getcolor?apikey=SUAKEY&color=ffff00">Hex Color Decode</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/v1/menu?apikey=SUAKEY&profileimg=https://avatars.githubusercontent.com/u/57237342?v=4&background=https://i.imgur.com/tVKFNFk.png&description=Brizas-bot&title=BEM-VINDO&username=briz4lok4">Foto Menu</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/v2/menu?apikey=SUAKEY&description=brizas-api&profileimg=https://avatars.githubusercontent.com/u/57237342?v=4&background=https://i.imgur.com/2TCj9ri.jpg">Foto Menu V2</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/resizeimg?apikey=SUAKEY&img=https://i.imgur.com/tVKFNFk.png&width=1280&height=720">Redimensionar imagem</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/sticker/formatter?apikey=SUAKEY&img=https://i.imgur.com/tVKFNFk.png">Sticker whatsapp format</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/giftowebp?apikey=SUAKEY&img=https://i.pinimg.com/originals/c4/dd/5d/c4dd5d671bb86d8551e9697c2d9ece06.gif">Gif to Webp</a></li>
+                                <li><a class="api" target="__blank" target="blank" href="/photomod/reversegif?apikey=SUAKEY&gif=https://media.giphy.com/media/3ohs7KViF6rA4aan5u/giphy.gif">Reverse gif</a></li>
+                              </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="content">
+                <div class="alert collapse alert—success" role="alert">
+                </div>
+                <header class="content__title">
+                    <h1>Bem vindo</h1>
+                    <small>Olá, seja bem vindo ao novo site do brizas api, aqui você pode encontrar as melhores RESTs APIs do Brasil</small>
+                </header>
+
+                <div class="row quick-stats">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 id="request_total">0</h2>
+                                <small>Request totais</small>
+                            </div>
+                            <div class="quick-stats__chart peity-bar">6,4,8,6,5,6,7,8,3,5,9</div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 id="user_total">0</h2>
+                                <small>Usuários registrados</small>
+                            </div>
+
+                            <div class="quick-stats__chart peity-bar">4,7,6,2,5,3,8,6,6,4,8</div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 id="ipv4"></h2>
+                                <small>Ipv4</small>
+                            </div>
+
+                            <div class="quick-stats__chart peity-bar">9,4,6,5,6,4,5,7,9,3,6</div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="quick-stats__item">
+                            <div class="quick-stats__info">
+                                <h2 id="visitas">0</h2>
+                                <small>Visitantes</small>
+                            </div>
+
+                            <div class="quick-stats__chart peity-bar">5,6,3,9,7,5,4,6,5,6,4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"></div>
+
+                <div data-columns>
+                    <div class="card todo">
+                        <div class="card-body">
+                            <h4 class="card-title">Atualizações</h4>
+                            <h6 class="card-subtitle">Veja abaixo as atualizações que foram feitas</h6>
+                        </div>
+                        <div class="listview__item">
+                            <label class="custom-control custom-control--char todo__item">
+                                <input class="custom-control-input" type="checkbox" value="" disabled checked>
+                                <span class="custom-control--char__helper"><i>C</i></span>
+                                <div class="todo__info">
+                                    <span>Novas apis de youtube downloader!</span>
+                                    <small>14/07/2022</small>
+                                </div>
+                                <div class="listview__attrs">
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="listview__item">
+                            <label class="custom-control custom-control--char todo__item">
+                                <input class="custom-control-input" type="checkbox" value="" disabled checked>
+                                <span class="custom-control--char__helper"><i>N</i></span>
+                                <div class="todo__info">
+                                    <span>Melhoria nas apis de site +18</span>
+                                    <small>14/07/2022</small>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="listview__item">
+                            <label class="custom-control custom-control--char todo__item">
+                                <input class="custom-control-input" type="checkbox" checked disabled value="">
+                                <span class="custom-control--char__helper"><i>C</i></span>
+                                <div class="todo__info">
+                                    <span>Reajuste de api de dubloador</span>
+                                    <small>14/07/2022</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h4 class="card-title">Bot de whatsapp</h4>
+                            <h6 class="card-subtitle">Caso queira usar a apikey em um bot de whatsapp utilize nosso bot de exemplo</h6>
+                            <a target="blank" href="https://github.com/ianmsfvenom/Brizas-free"><img class="card-img" src="https://opengraph.githubassets.com/98aa82c083883c1a59669b7efba0d12de66e412659eaa4aa24e1d8a6cbe7b17b/ianmsfvenom/Brizas-free"></a>
+                        </div>
+                    </div>
+
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h4 class="card-title">SimSimi</h4>
+                            <h6 class="card-subtitle">Aproveite uma das inteligências artificiais da nossa API</h6>
+                            <div class="alert alert-warning" role="alert">
+                                Api simi está em manutenção então pode ser que demore pra responder ou nem responda as vezes
+                              </div>
+                            <h6>Pergunta: </h6>
+                            <div class="form-group form-group--centered">
+                                <input id="request_simi" type="text" class="form-control text-left" placeholder="Escreva sua pergunta aqui">
+                            </div>
+                            
+                            <h6>Resposta: </h6>
+                            <div class="form-group form-group--centered">
+                                <input id="response_simi" type="text" class="form-control text-left" readonly placeholder="Resposta do simi...">
+                            </div>
+
+                            <div class="form-group form-group--centered">
+                                <input id="response_simi" onclick="simi()" type="submit" class="form-control" placeholder="Enviar">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card widget-calendar">
+                        <div class="actions">
+                            <div class="dropdown actions__item">
+                                <i class="zmdi zmdi-more-vert" data-toggle="dropdown"></i>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Refresh</a>
+                                    <a class="dropdown-item" href="#">Calendar Settings</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-calendar__header">
+                            <div class="widget-calendar__year"></div>
+                            <div class="widget-calendar__day"></div>
+                        </div>
+                        <div class="widget-calendar__body"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Processamento do servidor</h4>
+                            <h6 class="card-subtitle">Frequência de solitações da api</h6>
+
+                            <div class="flot-chart flot-dynamic"></div>
+                            <div class="flot-chart-legends flot-chart-legends--dynamic"></div>
+                        </div>
+                    </div>
+
+                    <div class="card"> 
+                        <div class="card-body">
+                            <h4 class="card-title">Tutorial de instalar bots</h4>
+                            <h6 class="card-subtitle">Se estiver procurando um bot pra usar e não sabe instalar, assista um de nosso vídeos</h6>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/onBSDPBnuo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="footer hidden-xs-down">
+                    <p>© Copyright. Briz4lok4</p>
+
+                    <ul class="nav footer__nav">
+                        <a class="nav-link" href="#">Github</a>
+                        <a class="nav-link" href="#">Youtube</a>
+                        <a class="nav-link" href="#">Whatsapp</a>
+                        <a class="nav-link" href="#">Paypal</a>
+                    </ul>
+                </footer>
+            </section>
+        </main>
+        <script src="site_src/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="site_src/vendors/bower_components/popper.js/dist/umd/popper.min.js"></script>
+        <script src="site_src/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="site_src/vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="site_src/vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js"></script>
+
+        <script src="site_src/vendors/bower_components/salvattore/dist/salvattore.min.js"></script>
+        <script src="site_src/vendors/bower_components/flot/jquery.flot.js"></script>
+        <script src="site_src/vendors/bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="site_src/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+        <script src="site_src/vendors/bower_components/jqvmap/dist/jquery.vmap.min.js"></script>
+        <script src="site_src/vendors/bower_components/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="site_src/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+        <script src="site_src/vendors/bower_components/peity/jquery.peity.min.js"></script>
+        <script src="site_src/vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="site_src/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+
+
+        <script src="site_src/demo/js/flot-charts/curved-line.js"></script>
+        <script src="site_src/demo/js/flot-charts/line.js"></script>
+        <script src="site_src/demo/js/flot-charts/dynamic.js"></script>
+        <script src="site_src/demo/js/flot-charts/chart-tooltips.js"></script>
+        <script src="site_src/demo/js/other-charts.js"></script>
+        <script src="site_src/demo/js/jqvmap.js"></script>
+
+        <script src="site_src/js/app.min.js"></script>
+        <script src="site_src/js/app.min2.js"></script>
+        <script src="site_src/js/simi.js"></script>
+        <script>
+            if(localStorage.getItem('new_visitor')) {
+                fetch('/count/visitors?action=get').then(async res => {
+                    var res_json = await res.json()
+                    document.getElementById('visitas').innerHTML = res_json.visitors
+                })
+            } else {
+                fetch('/count/visitors?action=add').then(async res => {
+                    var res_json = await res.json()
+                    document.getElementById('visitas').innerHTML = res_json.visitors
+                    localStorage.setItem('new_visitor', true)
+                })
+            }
+        </script>
+    </body>
+
+</html>

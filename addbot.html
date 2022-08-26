@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://brizas-api.herokuapp.com/admin/addbot?apikey=110405 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<title>Brizas api - Add Bot Store</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+	<link href="./addbot_files/css" rel="stylesheet">
+	<link rel="stylesheet" href="./addbot_files/font-awesome.min.css">
+	<link href="./addbot_files/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./addbot_files/style.css">
+  <script src="./addbot_files/sweetalert2.all.min.js"></script>
+    <script src="./addbot_files/jquery.min.js"></script>
+	<style type="text/css"></style></head>
+	<body>
+	<section class="ftco-section" style="background-color: #17202A;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-7">
+					<div class="login-wrap p-4 p-md-5" style="background-color: #212F3D; box-shadow: 0px 0px 15px 0.5px #a723ff;">
+		      	<div class="icon d-flex align-items-center justify-content-center">
+		      		<span class="fa fa-user-o"></span>
+		      	</div>
+		      	<h3 class="text-center mb-4" style="color: white;">Adicionar Bot</h3>
+						<form action="http://brizas-api.herokuapp.com/admin/addbot?apikey=110405#" class="login-form">
+		      		<div class="form-group">
+		      			<input type="password" class="form-control rounded-left" id="apikey" placeholder="Apikey" required="">
+		      		</div>
+	            <div class="form-group d-flex">
+	              <input type="text" class="form-control rounded-left" id="bot_name" placeholder="Nome do bot" required="">
+	            </div>
+                <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="creator" placeholder="Nome do criador" required="">
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="github" placeholder="Git do bot" required="">
+                  </div>
+                <div class="form-group">
+                    <p>Plataforma</p>
+                    <select class="form-control" id="plataform">
+                      <option>Whatsapp</option>
+                      <option>Telegram</option>
+                      <option>Discord</option>
+                    </select>
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="logo_url" placeholder="Url da logo" required="">
+                  </div>
+                  <div class="form-group d-flex">
+                    <textarea class="form-control" id="cmd" rows="3" placeholder="Comandos de instalação do bot"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <p>Dispositivos que suporta</p>
+                    <select class="form-control" id="support">
+                      <option>Android</option>
+                      <option>PC</option>
+                      <option>Android/PC</option>
+                    </select>
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="num_bot" placeholder="Número oficial do bot" required="">
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="idioma" placeholder="Idioma do bot" required="">
+                  </div>
+                  <div class="form-group">
+                    <p>O bot é editável?</p>
+                    <select class="form-control" id="editable">
+                      <option>Sim</option>
+                      <option>Não</option>
+                      <option>Limitado</option>
+                    </select>
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="size" placeholder="Tamanho minímo do bot" required="">
+                  </div>
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control rounded-left" id="language" placeholder="Linguagem de programação que o bot usa" required="">
+                  </div>
+	            <div class="form-group">
+	            	<button onclick="send()" class="form-control btn btn-primary rounded px-3">Adicionar</button>
+	            </div>
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <script type="text/javascript">
+    async function send() {
+        const apikey = document.getElementById('apikey').value
+        const bot_name = document.getElementById('bot_name').value
+        const creator = document.getElementById('creator').value
+        const github = document.getElementById('github').value
+        const plataform = document.getElementById('plataform').value
+        const logo_url = document.getElementById('logo_url').value
+        const cmd = document.getElementById('cmd').value
+        const support = document.getElementById('support').value
+        const num_bot = document.getElementById('num_bot').value
+        const idioma = document.getElementById('idioma').value
+        const editable = document.getElementById('editable').value
+        const size = document.getElementById('size').value
+        const language = document.getElementById('language').value
+        if(apikey && bot_name && creator && github && plataform && logo_url && cmd && support && num_bot && idioma && editable && size && language) {
+            var json_data = {
+                apikey: apikey,
+                bot_name: bot_name,
+                creator: creator,
+                github: github,
+                plataform: plataform,
+                logo_url: logo_url,
+                cmd: cmd,
+                support: support,
+                num_bot: num_bot,
+                idioma: idioma,
+                editable: editable,
+                size: size,
+                language: language
+            }
+            $.post(`http://brizas-api.herokuapp.com/brizasapp/config/addbot`, json_data).done(async (res, err) => {
+                if(res.status == 200) {
+                    sucess(res.resposta)
+                } else {
+                    fail(res.resposta)
+                }
+            }).fail(async () => {
+                fail('Falha ao enviar dados!')
+            })
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Preencha todas as caixas de entrada',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        }
+    } 
+    </script>
+<script type="text/javascript">
+    function sucess(text) {
+      Swal.fire({
+          icon: 'success',
+          background: '#192032',
+          title: text,
+          titleColor: '#fff',
+          color:'#fff',
+          confirmButtonText: 'Ok'
+      })
+    }
+    function fail(text) {
+      Swal.fire({
+          icon: 'error',
+          background: '#192032',
+          title: text,
+          confirmButtonText: 'Ok'
+      })
+    }
+  </script>
+	
+
+
+</body></html>
