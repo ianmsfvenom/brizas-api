@@ -57,6 +57,7 @@ const ezgifz = require('./lib/ezgif')
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://brizas-api:brizaloka-api@cluster0.i0ula.mongodb.net/apikeys?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
 function fmtMSS(s){
     const minutes = Math.floor(s / 60);
     const seconds = s % 60;
