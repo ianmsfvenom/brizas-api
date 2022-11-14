@@ -8084,13 +8084,13 @@ async function starts() {
             const exeusers = ['ian pablo', 'gabriel', 'Crowley']
             const objsdie = []
             for(i=0;i < getapikeys.length; ++i) {
+                const dateApiKey = new Date(getapikeys[i].data.split('/')[2], getapikeys[i].data.split('/')[1], getapikeys[i].data.split('/')[0])
                 if(exeusers.indexOf(getapikeys[i].info.usuario) < 0) {
-                    if(parseInt(getapikeys[i].data.split('/')[0]) == date.getDate() && parseInt(getapikeys[i].data.split('/')[1]) < date.getMonth()+1 
-                    && parseInt(getapikeys[i].data.split('/')[2]) == date.getFullYear()) {
+                    if(dateApiKey.getDate() == date.getDate() && dateApiKey.getMonth() < (date.getMonth() + 1) && dateApiKey.getFullYear() == date.getFullYear()) {
                         objsdie.push(i)
                         console.log('Apikey vencida encontrada')
-                    } else if(parseInt(getapikeys[i].data.split('/')[1]) == 12 && date.getMonth()+1 == 1 && parseInt(getapikeys[i].data.split('/')[0]) == date.getDate() 
-                    && parseInt(getapikeys[i].data.split('/')[2]) < date.getFullYear()) {
+                    } else if(dateApiKey.getMonth() == 12 && date.getMonth()+1 == 1 && dateApiKey.getDate() == date.getDate() 
+                    && dateApiKey.getFullYear() < date.getFullYear()) {
                         objsdie.push(i)
                         console.log('Apikey vencida encontrada')
                     } else console.log('Apikey dentro do prazo')
