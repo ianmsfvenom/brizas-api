@@ -59,7 +59,7 @@ const uri = "mongodb+srv://brizas-api:brizaloka-api@cluster0.i0ula.mongodb.net/a
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
 const { instagramDownloader } = require('./lib/instagram');
-const { getUrlTiktok } = require('../fetch/tiktok');
+const { getUrlTiktok } = require('./lib/tiktok');
 
 function fmtMSS(s){
     const minutes = Math.floor(s / 60);
