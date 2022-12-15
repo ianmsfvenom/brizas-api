@@ -57,6 +57,9 @@ const ezgifz = require('./lib/ezgif')
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://brizas-api:brizaloka-api@cluster0.i0ula.mongodb.net/apikeys?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
+const { instagramDownloader } = require('./lib/instagram');
+const { getUrlTiktok } = require('../fetch/tiktok');
 
 function fmtMSS(s){
     const minutes = Math.floor(s / 60);
@@ -1836,8 +1839,8 @@ async function starts() {
             if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
             if(!dados.text) return res.send(JSON.stringify({resposta:'Preciso do texto para scanear', status:403}, null, 2)+ '\n')
             try {
-                var anu = await fetchJson(`https://api.simsimi.net/v2/?text=${dados.text}&lc=pt&cf=false`)
-                if(!anu.success) { 
+                var anu = await fetchJson(`https://simsimi.info/api/?text=${dados.text}&lc=pt`)
+                if(!anu.ok) { 
                     res.status(404).send(JSON.stringify({
                         result:'erro ao enviar simsimi',
                         status: 404
@@ -1846,7 +1849,7 @@ async function starts() {
                     res.send(JSON.stringify({
                         resultado: {
                             pergunta: dados.text,
-                            resposta: anu.success
+                            resposta: anu.message
                         },
                         status: 200
                     }, null, 2) + '\n')
@@ -3857,28 +3860,30 @@ async function starts() {
         })
     }
     async function redessociaisapi() {
-        app.get('/y2mate/mp3', async function(req,res) {
+        app.get('/sociais/tiktok', async function (req, res) {
             let dados = req.query
             res.header("Content-Type",'application/json');
-            if(!dados.url) return res.send(JSON.stringify({resposta:'Cade a url do y2mate', status:403}, null, 2)+ '\n')
+            if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
+            if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
+            if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
+            if(!dados.url) return res.send(JSON.stringify({resposta:'Diga a url do vídeo', status:403}, null, 2)+ '\n')
             try {
-                await res.header("Content-Type",'audio/mp3');
-                buff = await getBuffer(dados.url)
-                res.send(buff)
-            } catch {
-                res.send(JSON.stringify({resposta:'Falha ao pegar dados da url', status:404}, null, 2)+ '\n')
+                res.send(JSON.stringify(await getUrlTiktok(dados.url), null, 2))
+            } catch (e) {
+                res.send(JSON.stringify({message: 'falha'}, null, 2))
             }
         })
-        app.get('/y2mate/mp4', async function(req,res) {
+        app.get('/sociais/instagram', async function (req, res) {
             let dados = req.query
             res.header("Content-Type",'application/json');
-            if(!dados.url) return res.send(JSON.stringify({resposta:'Cade a url do y2mate', status:403}, null, 2)+ '\n')
+            if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
+            if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
+            if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
+            if(!dados.url) return res.send(JSON.stringify({resposta:'Diga a url do vídeo', status:403}, null, 2)+ '\n')
             try {
-                await res.header("Content-Type",'video/mp4');
-                buff = await getBuffer(dados.url)
-                res.send(buff)
-            } catch {
-                res.send(JSON.stringify({resposta:'Falha ao pegar dados da url', status:404}, null, 2)+ '\n')
+                res.send(JSON.stringify(await instagramDownloader(dados.url), null, 2))
+            } catch (e) {
+                res.send(JSON.stringify({message: 'falha'}, null, 2))
             }
         })
         app.get('/sociais/ttksearch', async function (req, res) {
@@ -6224,6 +6229,25 @@ async function starts() {
         })
     }
     async function searchapi() {
+        app.get('/search/tudo-celular', async function(req, res) {
+            let dados = req.query
+            res.header("Content-Type",'application/json');
+            if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
+            if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
+            if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
+            if(!dados.query) return res.send(JSON.stringify({resposta:'Falta a palavra chave', status:403}, null, 2)+ '\n')
+            try {
+                const listPhones = await searchPhone(dados.query)
+                const listDetailsPhones = []
+                for(let obj of listPhones) {
+                    const detailsPhone = await getInfoPhone(obj.url)
+                    listDetailsPhones.push({name:obj.title, detailsPhone})
+                }
+                res.send(JSON.stringify(listDetailsPhones, null, 2))
+            } catch (e) {
+
+            }
+        })
         app.get('/search/pensador', async function (req, res) {
             let dados = req.query
             res.header("Content-Type",'application/json');
@@ -8041,6 +8065,7 @@ async function starts() {
             }
         })
     }
+    
     app.listen(PORT, async () => {
         console.log(`Servidor iniciando em ${host} !`)
         const getcountmsg = await client.db('CountRequest').collection('req_count').find({}).toArray()
