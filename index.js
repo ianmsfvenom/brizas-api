@@ -1840,7 +1840,7 @@ async function starts() {
             if(!dados.text) return res.send(JSON.stringify({resposta:'Preciso do texto para scanear', status:403}, null, 2)+ '\n')
             try {
                 var anu = await fetchJson(`https://simsimi.info/api/?text=${dados.text}&lc=pt`)
-                if(!anu.ok) { 
+                if(!anu) { 
                     res.status(404).send(JSON.stringify({
                         result:'erro ao enviar simsimi',
                         status: 404
