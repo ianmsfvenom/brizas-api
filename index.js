@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const canvas = require('discord-canvas')
-const fetch = require('node-fetch')
+const fetch = require('node-fetch').default
 const googleIt = require('google-it')
 const { fakerBr } = require('js-brasil')
 const Quotes = require("randomquote-api");
@@ -60,6 +60,12 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
 const { instagramDownloader } = require('./lib/instagram');
 const { getUrlTiktok } = require('./lib/tiktok');
+const cors = require('cors');
+
+const crypto = require('crypto')
+
+var keyHexFnf = Buffer.from('9jJVG96aaxdUPE%rsV3&yFqYphpKC67m')
+var ivHexFnf = Buffer.from('v9rD$U%oHep6n@58')
 
 function fmtMSS(s){
     const minutes = Math.floor(s / 60);
@@ -70,6 +76,11 @@ function fmtMSS(s){
     const result = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
     return result
 }
+app.use(cors({
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+}))
 app.use(fileupload())
 app.use(bodyParser.urlencoded({ extended: true }));
 var host = process.env.HOST || `http://localhost:${PORT}`
@@ -222,9 +233,208 @@ function generateaccess() {
 app.use('/css', express.static('css'))
 app.use('/site_src', express.static('site_src'))
 
+const hexToString = (str) =>
+{
+    const buf = new Buffer(str, 'hex');
+    return buf.toString('utf8');
+}
+const encryptHex = async (message) => {
+    var cipher = await crypto.createCipheriv('aes-256-ctr', keyHexFnf, ivHexFnf)
+    var encrypted = await cipher.update(message, 'utf-8', 'hex')
+    encrypted += await cipher.final('hex')
+    return encrypted;
+}
+
+const decryptHex =  async (message) => {
+    var cipher = await crypto.createDecipheriv('aes-256-ctr', keyHexFnf, ivHexFnf)
+    var decrypted = await cipher.update(message, 'hex', 'utf-8')
+    decrypted += await cipher.final('utf-8')
+    return decrypted;
+}
+
+function genTokenFnf(length = 20) {
+    var pass = '';
+    var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
+            'abcdefghijklmnopqrstuvwxyz0123456789';
+      
+    for (let i = 1; i <= length; i++) {
+        var char = Math.floor(Math.random()
+                    * str.length + 1);
+          
+        pass += str.charAt(char)
+    }
+      
+    return pass;
+}
 
 async function starts() {
+    
+
     await client.connect()
+    async function fnfapi() {
+        app.get('/user-score', async (req, res) => {
+            if(!req.query.number) return res.status(400).json({ message: 'Missing number'})
+            const check = await client.db('fnf').collection('scores').find({
+                number: req.query.number
+            }).toArray()
+            res.status(200).json(check)
+        })
+        app.get('/rank-scores', async (req, res) => {
+            if(!req.query.difficulty) return res.status(400).json({ message: 'Missing difficulty'})
+            if(!req.query.week) return res.status(400).json({ message: 'Missing week'})
+            var difficulty = req.query.difficulty
+            var week = parseInt(req.query.week)
+            var check = await client.db('fnf').collection('scores').find({
+                difficulty: difficulty,
+                week: week
+            }).toArray()
+            check = check.sort((a, b) => b.score - a.score)
+            res.status(200).json(check)
+        })
+        app.get('/check-number', async (req, res) => {
+            if(!req.query.number) return res.status(400).json({message: 'Missing number'})
+            try {
+                const check = await client.db('fnf').collection('tokens').findOne({
+                    number: req.query.number
+                })
+                var isFound = (check != null)
+                var token = (check == null) ? '' : check.token
+                var resEncrypt = await encryptHex(JSON.stringify({isFound, token}))
+                res.status(200).send(resEncrypt)
+            } catch (error) {
+                res.status(404).json({message: 'Don\'t find user'})
+            }
+        })
+        app.get('/reset-token', async (req, res) => {
+            const jsonDecrypt = JSON.parse(await decryptHex(req.query.hex))
+            if(!jsonDecrypt.number) return res.status(400).json({message: 'Missing number'})
+            if(isNaN(jsonDecrypt.number)) return res.status(400).json({message: 'Number is invalid'})
+            var token = genTokenFnf()
+            const check = await client.db('fnf').collection('tokens').findOne({
+                number: jsonDecrypt.number
+            })
+            if(check != null) {
+                await client.db('fnf').collection('tokens').updateOne({
+                    number: jsonDecrypt.number
+                }, {
+                    $set: {
+                        token: token
+                    }
+                })
+
+                res.status(200).send(await encryptHex(JSON.stringify({token: token})))
+
+            } else {
+                res.status(404).json({
+                    message: 'User not found'
+                })
+            }
+        })
+        app.post('/add-player', async (req, res) => {
+            if(!req.body.number) return res.status(400).json({message: 'Missing number'})
+            if(isNaN(req.body.number)) return res.status(400).json({message: 'Number is invalid'})
+            var token = genTokenFnf();
+            var number = req.body.number
+            const check = await client.db('fnf').collection('tokens').findOne({
+                number: number
+            })
+            if(check == null) {
+                await client.db('fnf').collection('tokens').insertOne({
+                    token: token,
+                    number: number
+                })
+                res.status(200).json({number, token})
+            } else {
+                res.status(403).json({message: 'User is already added'})
+            }
+        })
+        app.get('/check-username', async (req, res) => {
+            if(!req.query.token) return res.status(400).json({message: 'Missing token'})
+            var isValid = false;
+            var check = await client.db('fnf').collection('tokens').findOne({
+                token: req.query.token,
+            })
+            if(check != null) {
+                if(check.username) isValid = true;
+                else isValid = false;
+                res.status(200).json({isValid, username: check.username ? check.username : ''})
+            } else {
+                res.status(404).json({msg: 'Dont find user'})
+            }
+        })
+        app.post('/set-username', async (req, res) => {
+            try {
+                const jsonDecrypt = JSON.parse(await decryptHex(req.body.hex))
+                if(!jsonDecrypt.username) return res.status(400).json({message: 'Missing user'})
+                if(!jsonDecrypt.token) return res.status(400).json({message: 'Missing token'})
+                var check = await client.db('fnf').collection('tokens').findOne({
+                    token: jsonDecrypt.token,
+                })
+                if(check != null) {
+                    await client.db('fnf').collection('tokens').updateOne(check, {
+                        $set: {
+                            username: jsonDecrypt.username
+                        }
+                    })
+                    res.status(200).json({message: 'Success'})
+                } else {
+                    res.status(404).json({message: 'Dont find user'})
+                }
+            } catch(e) {
+                res.status(400).json({message: 'Invalid hex'})
+            } 
+        })
+        app.get('/check-token', async (req, res) => {
+            if(!req.query.token) return res.status(400).json({message: 'Missing token'})
+            if(!req.query.number) return res.status(400).json({message: 'Missing number'})
+            if(isNaN(req.query.number)) return res.status(400).json({message: 'Number Invalid'})
+            var check = await client.db('fnf').collection('tokens').findOne({
+                token: req.query.token,
+                number: req.query.number
+            })
+            var encrypted = await encryptHex(JSON.stringify({isValid: (check != null)}))
+            res.status(200).send(encrypted)
+        })
+        app.post('/set-score', async (req, res) => {
+            const jsonDecrypt = JSON.parse(await decryptHex(req.body.hex))
+            if(!jsonDecrypt.number) return res.status(400).json({message: 'Missing number'})
+            if(!jsonDecrypt.week) return res.status(400).json({message: 'Missing week'})
+            if(!jsonDecrypt.accurancy) return res.status(400).json({message: 'Missing accurancy'})
+            if(!jsonDecrypt.miss) return res.status(400).json({message: 'Missing miss'})
+            if(!jsonDecrypt.hits) return res.status(400).json({message: 'Missing hits'})
+            if(!jsonDecrypt.difficulty) return res.status(400).json({message: 'Missing difficulty'})
+            if(!jsonDecrypt.score) return res.status(400).json({message: 'Missing score'})
+            try {
+                var isBestScore = false
+                const check = await client.db('fnf').collection('scores').findOne({
+                    number: jsonDecrypt.number,
+                    week: jsonDecrypt.week,
+                    difficulty: jsonDecrypt.difficulty
+                })
+                if(check == null) {
+                    await client.db('fnf').collection('scores').insertOne(jsonDecrypt);
+                    isBestScore = true
+                } else {
+                    if(parseInt(check.score) < parseInt(jsonDecrypt.score)) {
+                        await client.db('fnf').collection('scores').updateOne(check, {
+                            $set: jsonDecrypt
+                        });
+                        isBestScore = true
+                    } else if(parseInt(check.score) == parseInt(jsonDecrypt.score)) {
+                        if(parseFloat(check.accurancy) < parseFloat(jsonDecrypt.accurancy)) {
+                            await client.db('fnf').collection('scores').updateOne(check, {
+                                $set: jsonDecrypt
+                            });
+                            isBestScore = true
+                        }
+                    }
+                }
+                res.status(200).json({ message: 'success', isBestScore: isBestScore})
+            } catch (error) {
+                res.status(401).json({ message: 'invalid hex'})
+            }
+        })
+    }
     async function botstoreapi(){
         app.get('/admin/addbot', async(req, res) => {
             if(req.query.apikey != supremeapikey) return
@@ -1839,25 +2049,32 @@ async function starts() {
             if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
             if(!dados.text) return res.send(JSON.stringify({resposta:'Preciso do texto para scanear', status:403}, null, 2)+ '\n')
             try {
-                var anu = await fetchJson(`https://simsimi.info/api/?text=${dados.text}&lc=pt`)
-                if(!anu) { 
-                    res.status(404).send(JSON.stringify({
-                        result:'erro ao enviar simsimi',
-                        status: 404
-                    }, null, 2) + '\n')
-                } else {
-                    res.send(JSON.stringify({
-                        resultado: {
-                            pergunta: dados.text,
-                            resposta: anu.message
-                        },
-                        status: 200
-                    }, null, 2) + '\n')
-                }
-            } catch {
+                await fetch(`https://api.simsimi.info/v1/simtalk`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `text=${dados.text}&lc=pt`
+                }).then(async (response) => {
+                    var json = JSON.parse(await response.text())
+                    if(!json) { 
+                        res.status(404).send(JSON.stringify({
+                            result:'erro ao enviar simsimi',
+                            status: 404
+                        }, null, 2) + '\n')
+                    } else {
+                        res.send(JSON.stringify({
+                            resultado: {
+                                pergunta: dados.text,
+                                resposta: json.message
+                            },
+                            status: 200
+                        }, null, 2) + '\n')
+                    }
+                })
+            } catch (e) {
                 try{
                     var anu = await fetchJson(`https://api.simsimi.net/v2/?text=${dados.text}&lc=pt&cf=false`)
-                    console.log(anu);
                     if(!anu.success) { 
                         res.status(404).send(JSON.stringify({
                             result:'erro ao enviar simsimi',
@@ -8144,6 +8361,7 @@ async function starts() {
         })
 
     });
+    await fnfapi()
     await textproapis()
     await gamesapi()
     await conversorapi()
