@@ -387,7 +387,7 @@ async function starts() {
         app.get('/check-token', async (req, res) => {
             if(!req.query.token) return res.status(400).json({message: 'Missing token'})
             if(!req.query.number) return res.status(400).json({message: 'Missing number'})
-            if(isNaN(req.query.number)) return res.status(400).json({message: 'Number Invalid'})
+            if(isNaN(req.query.number) && !req.body.number.includes('-')) return res.status(400).json({message: 'Number Invalid'})
             var check = await client.db('fnf').collection('tokens').findOne({
                 token: req.query.token,
                 number: req.query.number
