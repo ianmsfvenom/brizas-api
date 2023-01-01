@@ -308,7 +308,7 @@ async function starts() {
         app.get('/reset-token', async (req, res) => {
             const jsonDecrypt = JSON.parse(await decryptHex(req.query.hex))
             if(!jsonDecrypt.number) return res.status(400).json({message: 'Missing number'})
-            if(isNaN(jsonDecrypt.number)) return res.status(400).json({message: 'Number is invalid'})
+            if(isNaN(jsonDecrypt.number) && !req.body.number.includes('-')) return res.status(400).json({message: 'Number is invalid'})
             var token = genTokenFnf()
             const check = await client.db('fnf').collection('tokens').findOne({
                 number: jsonDecrypt.number
@@ -332,7 +332,7 @@ async function starts() {
         })
         app.post('/add-player', async (req, res) => {
             if(!req.body.number) return res.status(400).json({message: 'Missing number'})
-            if(isNaN(req.body.number)) return res.status(400).json({message: 'Number is invalid'})
+            if(isNaN(req.body.number) && !req.body.number.includes('-')) return res.status(400).json({message: 'Number is invalid'})
             var token = genTokenFnf();
             var number = req.body.number
             const check = await client.db('fnf').collection('tokens').findOne({
