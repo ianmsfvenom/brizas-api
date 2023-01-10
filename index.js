@@ -83,7 +83,7 @@ app.use(cors({
 }))
 app.use(fileupload())
 app.use(bodyParser.urlencoded({ extended: true }));
-var host = process.env.HOST || `http://localhost:${PORT}`
+var host = `https://api.brizaloka-api.tk`
 var getvideoid = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|shorts\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 var supremeapikey = 370769
 const usedApi = new Set()
