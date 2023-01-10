@@ -1990,7 +1990,7 @@ async function starts() {
             if(!dados.imgname) return res.send(JSON.stringify({resposta:'Preciso do nome da imagem', status:403}, null, 2)+ '\n')
             if(!fs.existsSync(dados.imgname)) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
             try {
-
+                if(dados.imgname.split('@').length > 2 && dados.imgname.split('@') < 0) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
                 await res.header("Content-Type",`image/${dados.imgname.split('@')[1]}`);
                 var buffer = await fs.readFileSync(dados.imgname)
                 await res.send(buffer)
