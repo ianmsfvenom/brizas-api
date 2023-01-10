@@ -3639,7 +3639,7 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Blur().getImage(dados.img, dados.level).then(result => {
+                new DIG.Blur().getImage(dados.img, parseInt(dados.level)).then(result => {
                     res.send(result)
                 })
             } catch (e) {
