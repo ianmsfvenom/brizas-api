@@ -1990,7 +1990,8 @@ async function starts() {
             if(!dados.imgname) return res.send(JSON.stringify({resposta:'Preciso do nome da imagem', status:403}, null, 2)+ '\n')
             if(!fs.existsSync(dados.imgname)) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
             try {
-                await res.header("Content-Type",'image');
+
+                await res.header("Content-Type",`image/${dados.imgname.split('@')[1]}`);
                 var buffer = await fs.readFileSync(dados.imgname)
                 await res.send(buffer)
                 setTimeout(() => {
@@ -3639,6 +3640,7 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
+                console.log(dados.img);
                 new DIG.Blur().getImage(dados.img, parseInt(dados.level)).then(result => {
                     res.send(result)
                 })
