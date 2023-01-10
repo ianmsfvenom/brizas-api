@@ -1975,7 +1975,7 @@ async function starts() {
             fs.writeFileSync(ran, media.image.data)
             var json = {
                 resultado: {
-                    link: await tinyurl.shorten(`${host}/upload/image?imgname=${ran}`),
+                    link: `${host}/upload/image?imgname=${ran}`,
                     filename: ran,
                     download_time: '7seg'
                 },
