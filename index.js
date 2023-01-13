@@ -2050,7 +2050,7 @@ async function starts() {
             if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
             if(!dados.text) return res.send(JSON.stringify({resposta:'Preciso do texto para scanear', status:403}, null, 2)+ '\n')
             try {
-                await fetch(`https://api.simsimi.info/v1/simtalk`, {
+                await fetch(`https://api.simsimi.vn/v1/simtalk`, {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/x-www-form-urlencoded'
