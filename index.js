@@ -9,12 +9,12 @@ const Lunicode = require('lunicode')
 const fileupload = require('express-fileupload')
 const lyrics = require("music-lyrics"); 
 const webp = require('webp-converter')
-const uber = require('uberduck-api')
 const DIG = require("discord-image-generation");
 const porn = require('@justalk/pornhub-api')
 const canvacord = require("canvacord");
 const textpro = require('./lib/textpro')
 const { Swiftcord } = require("swiftcord");
+const playlist = require('./lib/playlist')
 const cord = new Swiftcord();
 const tf = require('@tensorflow/tfjs-node')
 const linkfy = require('linkifyjs')
@@ -4079,6 +4079,25 @@ async function starts() {
         })
     }
     async function redessociaisapi() {
+        app.get('/sociais/playlistyt', async (req, res) => {
+            let dados = req.query
+            res.header("Content-Type",'application/json');
+            if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
+            if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
+            if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
+            if(!dados.url) return res.send(JSON.stringify({resposta:'Diga a url da playlist', status:403}, null, 2)+ '\n')
+            try {
+                var playlistRegexp = /^(?:https?:\/\/)?(?:(?:www\.)?youtube\.com\/(?:(?:v\/)|(?:shorts\/|embed\/|watch(?:\/|\?)|playlist(?:\/:\?)){1,2}(?:.*list=)?|.*list=)?|(?:www\.)?youtu\.be\/)([A-Za-z0-9_\-]+)&?.*$/;
+                if(dados.url.match(playlistRegexp).length < 1) return res.status(400).send({message: 'Url inválida'})
+                const playlistArray = await playlist.getVideosPlaylist(dados.url)
+                res.send(JSON.stringify(playlistArray, null, 2))
+            } catch (e) {
+                res.send(JSON.stringify({
+                    message: 'Error'
+                }))
+            }
+            
+        })
         app.get('/sociais/tiktok', async function (req, res) {
             let dados = req.query
             res.header("Content-Type",'application/json');
