@@ -76,11 +76,6 @@ function fmtMSS(s){
     const result = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
     return result
 }
-app.use(cors({
-    origin:'*', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200,
-}))
 app.use(fileupload())
 app.use(bodyParser.urlencoded({ extended: true }));
 var host = `https://api.brizaloka-api.tk`
@@ -233,11 +228,6 @@ function generateaccess() {
 app.use('/css', express.static('css'))
 app.use('/site_src', express.static('site_src'))
 
-const hexToString = (str) =>
-{
-    const buf = new Buffer(str, 'hex');
-    return buf.toString('utf8');
-}
 const encryptHex = async (message) => {
     var cipher = await crypto.createCipheriv('aes-256-ctr', keyHexFnf, ivHexFnf)
     var encrypted = await cipher.update(message, 'utf-8', 'hex')
@@ -4658,12 +4648,7 @@ async function starts() {
             if(!dados.level) return res.send(JSON.stringify({resultado:'Diga o level do usuário', status:403}, null, 2)+ '\n')
             try{
                 await res.header("Content-Type",'image/png');
-                var profileimgBuffer
-                if(dados.profileimg.includes(host+'/upload/image?imgname=')) {
-                    profileimgBuffer = await fs.readFileSync(dados.profileimg.split('?imgname=')[1])
-                } else {
-                    profileimgBuffer = await getBuffer(dados.profileimg)
-                }
+                var profileimgBuffer = await getBuffer(dados.profileimg)    
                 var backgroundBuffer = await getBuffer(dados.background)
                 const rank = new canvacord.Rank()
                 .setAvatar(profileimgBuffer)
