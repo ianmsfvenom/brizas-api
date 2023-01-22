@@ -4660,9 +4660,10 @@ async function starts() {
                 await res.header("Content-Type",'image/png');
                 var profileimgBuffer
                 if(dados.profileimg.includes(host+'/upload/image?imgname=')) {
-                    profileimgBuffer = fs.readFileSync(dados.profileimg.split('?imgname=')[1])
+                    profileimgBuffer = await fs.readFileSync(dados.profileimg.split('?imgname=')[1])
+                } else {
+                    profileimgBuffer = await getBuffer(dados.profileimg)
                 }
-                profileimgBuffer = await getBuffer(dados.profileimg)
                 var backgroundBuffer = await getBuffer(dados.background)
                 console.log(profileimgBuffer);
                 const rank = new canvacord.Rank()
