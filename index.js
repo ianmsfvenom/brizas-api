@@ -60,7 +60,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
 const { instagramDownloader } = require('./lib/instagram');
 const { getUrlTiktok } = require('./lib/tiktok');
-const cors = require('cors');
 
 const crypto = require('crypto')
 
@@ -1965,7 +1964,7 @@ async function starts() {
             fs.writeFileSync(ran, media.image.data)
             var json = {
                 resultado: {
-                    link: `${host}/upload/image?imgname=${ran}`,
+                    link: await tinyurl.shorten(`${host}/upload/image?imgname=${ran}`),
                     filename: ran,
                     download_time: '7seg'
                 },
