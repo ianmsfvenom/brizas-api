@@ -4660,6 +4660,8 @@ async function starts() {
                 await res.header("Content-Type",'image/png');
                 var profileimgBuffer = await getBuffer(dados.profileimg)
                 var backgroundBuffer = await getBuffer(dados.background)
+                console.log(profileimgBuffer);
+                
                 const rank = new canvacord.Rank()
                 .setAvatar(profileimgBuffer)
                 .setCurrentXP(parseFloat(dados.atualxp))
@@ -4679,8 +4681,8 @@ async function starts() {
                     res.send(data)
                 })
             } catch (e) {
-                await res.header("Content-Type",'application/json');
                 console.log(e)
+                await res.header("Content-Type",'application/json');
                 res.send(JSON.stringify({resultado:'Erro ao upar a imagem', status: 404}, null, 2)+ '\n')
             }
         })
