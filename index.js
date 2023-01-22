@@ -4658,8 +4658,10 @@ async function starts() {
             if(!dados.level) return res.send(JSON.stringify({resultado:'Diga o level do usuário', status:403}, null, 2)+ '\n')
             try{
                 await res.header("Content-Type",'image/png');
+                var profileimgBuffer = await getBuffer(dados.profileimg)
+                var backgroundBuffer = await getBuffer(dados.background)
                 const rank = new canvacord.Rank()
-                .setAvatar(dados.profileimg)
+                .setAvatar(profileimgBuffer)
                 .setCurrentXP(parseFloat(dados.atualxp))
                 .setRequiredXP(parseFloat(dados.maxxp))
                 .setStatus('online')
@@ -4670,7 +4672,7 @@ async function starts() {
                 .setLevel(parseInt(dados.level))
                 .setUsername(dados.name)
                 .setDiscriminator(dados.desc)
-                .setBackground("IMAGE", dados.background)
+                .setBackground("IMAGE", backgroundBuffer)
                 .setOverlay('#000000', 0.6)
                 
                 rank.build().then(data => {
