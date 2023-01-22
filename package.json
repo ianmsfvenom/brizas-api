@@ -45,6 +45,7 @@
     "jsdom": "^19.0.0",
     "linkifyjs": "^3.0.0-beta.3",
     "lolis.life": "^4.0.0",
+    "long": "^5.2.1",
     "lunicode": "^2.0.1",
     "moment": "^2.29.1",
     "mongodb": "^4.1.1",
