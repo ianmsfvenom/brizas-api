@@ -4665,7 +4665,6 @@ async function starts() {
                     profileimgBuffer = await getBuffer(dados.profileimg)
                 }
                 var backgroundBuffer = await getBuffer(dados.background)
-                console.log(profileimgBuffer);
                 const rank = new canvacord.Rank()
                 .setAvatar(profileimgBuffer)
                 .setCurrentXP(parseFloat(dados.atualxp))
