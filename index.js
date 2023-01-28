@@ -60,6 +60,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
 const { instagramDownloader } = require('./lib/instagram');
 const { getUrlTiktok } = require('./lib/tiktok');
+const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 
 const crypto = require('crypto')
 
@@ -1961,7 +1962,7 @@ async function starts() {
             if(!media.image) return res.send(JSON.stringify({resposta:'Necessito do audio', status:403}, null, 2)+ '\n')
             if(!media.image.mimetype.includes('image')) return res.send(JSON.stringify({resposta:'Apenas imagem', status:403}, null, 2)+ '\n')
             var ran = getRandom('.'+media.image.name.split('.')[1])
-            fs.writeFileSync(ran, media.image.data)
+            fs.writeFileSync('./media/'+ran, media.image.data)
             var json = {
                 resultado: {
                     link: await tinyurl.shorten(`${host}/upload/image?imgname=${ran}`),
@@ -1977,15 +1978,15 @@ async function starts() {
             let dados = req.query
             res.header("Content-Type",'application/json');
             if(!dados.imgname) return res.send(JSON.stringify({resposta:'Preciso do nome da imagem', status:403}, null, 2)+ '\n')
-            if(!fs.existsSync(dados.imgname)) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
+            if(!fs.existsSync('./media/'+dados.imgname)) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
             try {
                 if(dados.imgname.split('@').length > 2 && dados.imgname.split('@') < 0) return res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
                 await res.header("Content-Type",`image/${dados.imgname.split('.')[1]}`);
-                var buffer = await fs.readFileSync(dados.imgname)
+                var buffer = await fs.readFileSync('./media/'+dados.imgname)
                 await res.send(buffer)
                 setTimeout(() => {
-                    fs.unlinkSync(dados.imgname)
-                }, 30000)
+                    fs.unlinkSync('./media/'+dados.imgname)
+                }, 15000)
             } catch {
                 res.send(JSON.stringify({resposta:'Imagem não encontrada no servidor', status:403}, null, 2)+ '\n')
             }
@@ -3064,7 +3065,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Ad().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Ad().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3084,7 +3086,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Affect().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Affect().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3105,7 +3108,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Batslap().getImage(dados.img, dados.img2).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Batslap().getImage(buff, dados.img2).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3125,7 +3129,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Beautiful().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Beautiful().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3146,7 +3151,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Bed().getImage(dados.img, dados.img2).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Bed().getImage(buff, dados.img2).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3166,7 +3172,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Bobross().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Bobross().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3186,7 +3193,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.ConfusedStonk().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.ConfusedStonk().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3206,7 +3214,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Delete().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Delete().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3226,7 +3235,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.DiscordBlack().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.DiscordBlack().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3246,7 +3256,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.DiscordBlue().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.DiscordBlue().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3267,7 +3278,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.DoubleStonk().getImage(dados.img, dados.img2).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.DoubleStonk().getImage(buff, dados.img2).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3287,7 +3299,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Facepalm().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Facepalm().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3307,7 +3320,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Hitler().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Hitler().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3327,7 +3341,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Jail().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Jail().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3347,7 +3362,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Karaba().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Karaba().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3368,7 +3384,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Kiss().getImage(dados.img, dados.img2).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Kiss().getImage(buff, dados.img2).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3388,7 +3405,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Mms().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Mms().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3408,7 +3426,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.NotStonk().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.NotStonk().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3433,7 +3452,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Podium().getImage(dados.img, dados.img2, dados.img3, dados.text, dados.text2, dados.text3).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Podium().getImage(buff, dados.img2, dados.img3, dados.text, dados.text2, dados.text3).then(result => {
                     res.send(result)
                 })
             } catch (e) {
@@ -3450,7 +3470,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Poutine().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Poutine().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3470,7 +3491,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Rip().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Rip().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3491,7 +3513,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Spank().getImage(dados.img, dados.img2).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Spank().getImage(buff, dados.img2).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3511,7 +3534,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Stonk().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Stonk().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3531,7 +3555,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Tatoo().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Tatoo().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3551,7 +3576,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Thomas().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Thomas().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3571,7 +3597,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Trash().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Trash().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3592,7 +3619,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Wanted().getImage(dados.img, dados.text).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Wanted().getImage(buff, dados.text).then(result => {
                     res.send(result)
                 })
             } catch (e) {
@@ -3628,9 +3656,8 @@ async function starts() {
             if(!dados.level) return res.send(JSON.stringify({resultado:'Diga o level do blur', status:403}, null, 2)+ '\n')
             await res.header("Content-Type",'image/png');
             try{
-                ran = getRandom('.png')
-                console.log(dados.img);
-                new DIG.Blur().getImage(dados.img, parseInt(dados.level)).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Blur().getImage(buff, parseInt(dados.level)).then(result => {
                     res.send(result)
                 })
             } catch (e) {
@@ -3647,7 +3674,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Gay().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Gay().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3667,7 +3695,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Greyscale().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Greyscale().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3687,7 +3716,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Invert().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Invert().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3707,7 +3737,8 @@ async function starts() {
             await res.header("Content-Type",'image/png');
             try{
                 ran = getRandom('.png')
-                new DIG.Sepia().getImage(dados.img).then(result => {
+                var buff = await getBuffer(dados.img)
+                new DIG.Sepia().getImage(buff).then(result => {
                     res.send(result)
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -4630,6 +4661,31 @@ async function starts() {
         })
     }
     async function photosapi() {
+        app.post('/photomod/sticker-editor', async (req, res) => {
+            res.header("Content-Type",'application/json');
+            if(!req.body.apikey) return res.send(JSON.stringify({resultado:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
+            if(!(await checkapikey(req.body.apikey))) return res.send(JSON.stringify({resultado:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
+            if(!req.body.author) return res.status(400).send(JSON.stringify({message: 'Necessita do nome do autor'}))
+            if(!req.body.package) return res.status(400).send(JSON.stringify({message: 'Necessita do nome do pacote'}))
+            if(!req.files.file) return res.status(400).send(JSON.stringify({message: 'Necessita da imagem webp'}))
+            if(req.files.file.mimetype != 'image/webp') return res.status(400).send(JSON.stringify({message: 'Somente imagens em formato webp'}))
+            try {
+                const sticker = new Sticker(req.files.file.data, {
+                    pack: req.body.author,
+                    author: req.body.package,
+                    type: StickerTypes.FULL,
+                    background: '#000000'
+                })
+                await res.header("Content-Type",'image/webp');
+                const bufferSticker = await sticker.toBuffer()
+                res.send(bufferSticker)
+            } catch(e) {
+                res.send(JSON.stringify({
+                    message: 'Falha ao criar sticker'
+                }, null, 2))
+                console.log(e);
+            }
+        })
         app.get('/photomod/rank', async (req,res) => {
             let dados = req.query
             res.header("Content-Type",'application/json');

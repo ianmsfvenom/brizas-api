@@ -65,6 +65,7 @@
     "tinyurl": "^1.1.7",
     "translatte": "^3.0.0",
     "uberduck-api": "^1.2.2",
+    "wa-sticker-formatter": "^4.3.2",
     "webp-converter": "^2.3.3",
     "ytdownloader.js": "^1.0.9"
   }
