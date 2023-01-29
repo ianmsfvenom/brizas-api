@@ -2993,7 +2993,8 @@ async function starts() {
             if(!dados.text2) return res.send(JSON.stringify({resultado:'Diga o texto do impostor', status:403}, null, 2)+ '\n')
             await res.header("Content-Type",'image/gif');
             try {
-                buffimg = await getBuffer(dados.img)
+        
+                var buffimg = await getBuffer(dados.img)
                 const buff = await ejectamong(dados.text1, dados.text2, buffimg)
                 res.send(buff)
             } catch (e) {
@@ -3010,7 +3011,9 @@ async function starts() {
             if(!dados.img2) return res.send(JSON.stringify({resultado:'Diga a url da imagem 2', status:403}, null, 2)+ '\n')
             await res.header("Content-Type",'video/mp4');
             try{
-                new DIG.Blink().getImage(dados.img, dados.img2).then(result => {
+                var bufferImg = await getBuffer(dados.img)
+                var bufferImg2 = await getBuffer(dados.img2)
+                new DIG.Blink().getImage(bufferImg, bufferImg2).then(result => {
                     ran = getRandom('.gif')
                     rano = getRandom('.mp4')
                     fs.writeFileSync(ran, result)
@@ -3036,7 +3039,8 @@ async function starts() {
             if(!dados.img) return res.send(JSON.stringify({resultado:'Diga a url da imagem', status:403}, null, 2)+ '\n')
             await res.header("Content-Type",'video/mp4');
             try{
-                new DIG.Triggered().getImage(dados.img).then(result => {
+                var bufferImg = await getBuffer(dados.img)
+                new DIG.Triggered().getImage(bufferImg).then(result => {
                     ran = getRandom('.gif')
                     rano = getRandom('.mp4')
                     fs.writeFileSync(ran, result)
