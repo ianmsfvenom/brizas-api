@@ -3016,11 +3016,11 @@ async function starts() {
                 new DIG.Blink().getImage(bufferImg, bufferImg2).then(result => {
                     ran = getRandom('.gif')
                     rano = getRandom('.mp4')
-                    fs.writeFileSync(ran, result)
-                    execute(`ffmpeg -r 30 -i ${ran} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${rano}`).then(async response => {
-                        res.send(fs.readFileSync(rano))
-                        fs.unlinkSync(ran)
-                        fs.unlinkSync(rano)
+                    fs.writeFileSync('./media/'+ran, result)
+                    execute(`ffmpeg -r 30 -i ${'media/'+ran} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${'media/'+rano}`).then(async response => {
+                        res.send(fs.readFileSync('./media/'+rano))
+                        fs.unlinkSync('./media/'+ran)
+                        fs.unlinkSync('./media/'+rano)
                     })
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -3043,11 +3043,11 @@ async function starts() {
                 new DIG.Triggered().getImage(bufferImg).then(result => {
                     ran = getRandom('.gif')
                     rano = getRandom('.mp4')
-                    fs.writeFileSync(ran, result)
-                    execute(`ffmpeg -r 30 -i ${ran} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${rano}`).then(async response => {
-                        res.send(fs.readFileSync(rano))
-                        fs.unlinkSync(ran)
-                        fs.unlinkSync(rano)
+                    fs.writeFileSync('./media/'+ran, result)
+                    execute(`ffmpeg -r 30 -i ${'media/'+ran} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${'media/'+rano}`).then(async response => {
+                        res.send(fs.readFileSync('./media/'+rano))
+                        fs.unlinkSync('./media/'+ran)
+                        fs.unlinkSync('./media/'+rano)
                     })
                 }).catch(async err => {
                     await res.header("Content-Type",'application/json');
@@ -4491,12 +4491,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp3')
                 rano = getRandom('.mp3')
-                fs.writeFileSync(ran, media.audio.data)
-                await execute(`ffmpeg -i ${ran} -filter:a "atempo=0.5,asetrate=65100" ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.audio.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -filter:a "atempo=0.5,asetrate=65100" ${'media/'+rano}`)
                 res.header("Content-Type",'audio/mpeg')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4517,12 +4517,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp3')
                 rano = getRandom('.mp3')
-                fs.writeFileSync(ran, media.audio.data)
-                await execute(`ffmpeg -i ${ran} -af bass=g=100:f=110:w=0.6 ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.audio.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -af bass=g=100:f=110:w=0.6 ${'media/'+rano}`)
                 res.header("Content-Type",'audio/mpeg')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4543,12 +4543,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp3')
                 rano = getRandom('.mp3')
-                fs.writeFileSync(ran, media.audio.data)
-                await execute(`ffmpeg -i ${ran} -af equalizer=f=500:width_type=o:width=2:g=30 ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.audio.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -af equalizer=f=500:width_type=o:width=2:g=30 ${'media/'+rano}`)
                 res.header("Content-Type",'audio/mpeg')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4569,12 +4569,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp3')
                 rano = getRandom('.mp3')
-                fs.writeFileSync(ran, media.audio.data)
-                await execute(`ffmpeg -i ${ran} -af areverse ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.audio.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -af areverse ${'media/'+rano}`)
                 res.header("Content-Type",'audio/mpeg')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4597,12 +4597,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp4')
                 rano = getRandom('.mp4')
-                fs.writeFileSync(ran, media.video.data)
-                await execute(`ffmpeg -i ${ran} -vf reverse -af areverse ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.video.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -vf reverse -af areverse ${'media/'+rano}`)
                 res.header("Content-Type",'video/mp4')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4623,12 +4623,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp4')
                 rano = getRandom('.mp4')
-                fs.writeFileSync(ran, media.video.data)
-                await execute(`ffmpeg -i ${ran} -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.video.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" ${'media/'+rano}`)
                 res.header("Content-Type",'video/mp4')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4649,12 +4649,12 @@ async function starts() {
             try {
                 ran = getRandom('.mp4')
                 rano = getRandom('.mp4')
-                fs.writeFileSync(ran, media.video.data)
-                await execute(`ffmpeg -i ${ran} -filter_complex "[0:v]setpts=2*PTS[v];[0:a]atempo=0.5[a]" -map "[v]" -map "[a]" ${rano}`)
+                fs.writeFileSync('./media/'+ran, media.video.data)
+                await execute(`ffmpeg -i ${'media/'+ran} -filter_complex "[0:v]setpts=2*PTS[v];[0:a]atempo=0.5[a]" -map "[v]" -map "[a]" ${'media/'+rano}`)
                 res.header("Content-Type",'video/mp4')
-                await res.send(fs.readFileSync(rano))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+rano))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4841,12 +4841,12 @@ async function starts() {
                 buff = await getBuffer(dados.gif)
                 rano = getRandom('.gif')
                 ran = getRandom('.gif')
-                fs.writeFileSync(rano, buff)
-                await execute(`ffmpeg -i ${rano} -vf reverse ${ran}`)
+                fs.writeFileSync('./media/'+rano, buff)
+                await execute(`ffmpeg -i ${'media/'+rano} -vf reverse ${'media/'+ran}`)
                 res.header("Content-Type",'image/gif');
-                await res.send(fs.readFileSync(ran))
-                fs.unlinkSync(ran)
-                fs.unlinkSync(rano)
+                await res.send(fs.readFileSync('./media/'+ran))
+                fs.unlinkSync('./media/'+ran)
+                fs.unlinkSync('./media/'+rano)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
@@ -4866,16 +4866,14 @@ async function starts() {
                 buff = await getBuffer(dados.img)
                 ran = getRandom('.gif')
                 rano = getRandom('.webp')
-                fs.writeFileSync(ran, buff)
-                const result = webp.gwebp(ran, rano, '-q 80', logging='-v')
-                result.then((resulta) => {
+                fs.writeFileSync('./media/'+ran, buff)
+                const result = webp.gwebp('./media/'+ran, './media/'+rano, '-q 80', logging='-v')
+                result.then(async (resulta) => {
                     res.header("Content-Type",'image/webp')
-                    res.send(fs.readFileSync(rano))
+                    await res.send(fs.readFileSync('./media/'+rano))
+                    fs.unlinkSync('./media/'+ran)
+                    fs.unlinkSync('./media/'+rano)
                 })
-                setTimeout(async function () {
-                    fs.unlinkSync(ran)
-                    fs.unlinkSync(rano)
-                }, 10000)
             } catch (e) {
                 console.log(e)
                 res.send(JSON.stringify({
