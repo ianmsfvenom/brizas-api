@@ -6043,7 +6043,7 @@ async function main() {
             if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
             if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
             if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
-            linkimg = (await HMfull.HMtai.nsfw.neko()).url
+            linkimg = (await HMfull.HMtai.nsfw.nsfwNeko()).url
             buff = await getBuffer(linkimg)
             try {
                 res.header("Content-Type", 'image')
