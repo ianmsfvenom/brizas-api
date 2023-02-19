@@ -21,6 +21,7 @@
     "canvas": "^2.8.0",
     "canvas-text-wrapper": "^0.10.2",
     "canvas-txt": "^3.0.0",
+    "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.9",
     "cookie": "^0.4.1",
     "correios-brasil": "^2.2.2",

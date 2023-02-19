@@ -57,6 +57,7 @@ const ezgifz = require('./lib/ezgif')
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://brizas-api:brizaloka-api@cluster0.i0ula.mongodb.net/apikeys?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const chalk = require('chalk')
 const { getInfoPhone, searchPhone } = require('./lib/tudocelular')
 const { instagramDownloader } = require('./lib/instagram');
 const { getUrlTiktok } = require('./lib/tiktok');
@@ -150,7 +151,12 @@ async function checkapikey(apikey) {
 app.use('/css', express.static('css'))
 app.use('/site_src', express.static('site_src'))
 
-async function starts() {
+app.use(async (req, res, next) => {
+    console.log(`${chalk.green.bold(`[REQUEST] `)}${chalk.white.bold(`[method=${chalk.yellow.bold(req.method)} url=${chalk.yellow.bold(req.url)}]`)}`)
+    next()
+})
+
+async function main() {
 
     const formatMemoryUsage = (data) => `${Math.round(data / 1024 / 1024 * 100) / 100} MB`;
 
@@ -8372,4 +8378,4 @@ async function starts() {
     })
 }
 
-starts()
+main()

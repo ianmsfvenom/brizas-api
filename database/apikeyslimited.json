@@ -5,19 +5,9 @@
       "usuario": "briz4loka",
       "apikey": "brizaloka",
       "limit_request": 10000,
-      "request_rest": 9979
+      "request_rest": 9817
     },
     "data": "03/08/2021"
-  },
-  {
-    "_id": "61734a7829a524124f958d06",
-    "info": {
-      "usuario": "gst",
-      "apikey": "gstt",
-      "limit_request": 700,
-      "request_rest": 667
-    },
-    "data": "22/10/2021"
   },
   {
     "_id": "617dc1b22fc2c77fce58f1c1",
@@ -35,7 +25,7 @@
       "usuario": "Lindionez",
       "apikey": "Lindio4444",
       "limit_request": 700,
-      "request_rest": 686
+      "request_rest": 685
     },
     "data": "14/11/2021"
   },
