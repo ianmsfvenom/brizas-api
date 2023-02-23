@@ -1179,8 +1179,8 @@ async function main() {
             if(!dados.text) return res.send(JSON.stringify({resposta:'Preciso do texto', status:403}, null, 2)+ '\n')
             try {
                 await res.header("Content-Type",'image/webp');
-                ran = getRandom('.gif')
-                rano = getRandom('.webp')
+                var ran = getRandom('.gif')
+                var rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                 encoder.createReadStream().pipe(fs.createWriteStream(ran)).on('finish',async () => {
                     const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
@@ -1876,7 +1876,7 @@ async function main() {
             fs.writeFileSync('./media/'+ran, media.image.data)
             var json = {
                 resultado: {
-                    link: await tinyurl.shorten(`${host}/upload/image?imgname=${ran}`),
+                    link: `${host}/upload/image?imgname=${ran}`,
                     filename: ran,
                     download_time: '7seg'
                 },
