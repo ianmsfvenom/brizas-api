@@ -1183,9 +1183,9 @@ async function main() {
                 var rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
-                        await res.send(fs.readFileSync('/media/'+rano))
+                        await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
                         fs.unlinkSync('./media/'+rano)
                     }).catch(async err => {
@@ -1244,7 +1244,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1299,7 +1299,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1360,7 +1360,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1414,7 +1414,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1475,7 +1475,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1529,7 +1529,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1590,7 +1590,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                 encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1644,7 +1644,7 @@ async function main() {
                 var rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1705,7 +1705,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1759,7 +1759,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -1820,7 +1820,7 @@ async function main() {
                 rano = getRandom('.webp')
                 const encoder = new GIFEncoder(512, 512);
                  encoder.createReadStream().pipe(fs.createWriteStream('./media/'+ran)).on('finish',async () => {
-                    const result = webp.gwebp(ran,rano,"-q 80",logging="-v");
+                    const result = webp.gwebp('./media/'+ran, './media/'+rano,"-q 80",logging="-v");
                     result.then(async (response) => {
                         await res.send(fs.readFileSync('./media/'+rano))
                         fs.unlinkSync('./media/'+ran)
@@ -5809,7 +5809,7 @@ async function main() {
             if(!dados.apikey) return res.send(JSON.stringify({resposta:'Ow projeto de anta e a apikey?', status:403}, null, 2)+ '\n')
             if(!(await checkapikey(dados.apikey))) return res.send(JSON.stringify({resposta:'Apikey incorreta ou número de requests esgotados', status:403}, null, 2)+ '\n')
             if(!(await ipcheck(req.headers['x-forwarded-for'] || req.socket.remoteAddress))) return res.send(JSON.stringify({resposta: 'Flood detectado, serviço negado', status: 403}))
-            linkimg = (await HMfull.HMtai.nsfw.footjoob()).url
+            linkimg = (await HMfull.HMtai.nsfw.hentai()).url
             buff = await getBuffer(linkimg)
             try {
                 res.header("Content-Type", 'image')
