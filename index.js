@@ -1,4 +1,5 @@
 const express = require('express')
+const os = require('os-utils')
 const bodyParser = require('body-parser');
 const canvas = require('discord-canvas')
 const fetch = require('node-fetch').default
@@ -66,7 +67,8 @@ const { encryptHex, decryptHex } = require('./lib/encrypting')
 const { 
     generateaccess, dataAtualFormatada, dataAtualFormatadaMod, 
     getBuffer, getRandom, fetchJson, isUrl, allkeyslist,
-    genTokenFnf } = require('./lib/controllers')
+    genTokenFnf } = require('./lib/controllers');
+const { exec } = require('child_process');
 
 function fmtMSS(s){
     const minutes = Math.floor(s / 60);
@@ -158,18 +160,15 @@ app.use(async (req, res, next) => {
 
 async function main() {
 
-    const formatMemoryUsage = (data) => `${Math.round(data / 1024 / 1024 * 100) / 100} MB`;
 
-    const memoryData = process.memoryUsage();
+    setInterval(async () => {
+        os.cpuUsage(async p => {
+            if(p >= 0.95) {
+                await exec(`sudo reboot`)
+            }
+        })
+    }, 3000);
     
-    const memoryUsage = {
-      rss: `${formatMemoryUsage(memoryData.rss)} -> total memory allocated for the process execution`,
-      heapTotal: `${formatMemoryUsage(memoryData.heapTotal)} -> total size of the allocated heap`,
-      heapUsed: `${formatMemoryUsage(memoryData.heapUsed)} -> actual memory used during the execution`,
-      external: `${formatMemoryUsage(memoryData.external)} -> external memory`,
-    };
-    
-    console.log(memoryUsage);
 
     await client.connect()
     async function fnfapi() {
